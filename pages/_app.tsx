@@ -1,17 +1,77 @@
-import { GainsightWrapper } from '../components/GainsightWrapper'
-import NavBar from '../components/NavBar'
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import type { AppProps } from "next/app";
+import {
+  RainbowKitProvider,
+  getDefaultWallets,
+  connectorsForWallets,
+  darkTheme,
+} from "@rainbow-me/rainbowkit";
+import { trustWallet, ledgerWallet } from "@rainbow-me/rainbowkit/wallets";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
+import { optimismGoerli } from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
-export default function App({ Component, pageProps }: AppProps) {
+import { Toaster } from "../components/ui/toaster";
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [optimismGoerli],
+  [publicProvider(), alchemyProvider({ apiKey: process.env.alchemy_key })],
+);
+
+const projectId = "Whool App";
+
+const { wallets } = getDefaultWallets({
+  appName: "RainbowKit demo",
+  projectId,
+  chains,
+});
+
+const demoAppInfo = {
+  appName: "Rainbowkit Demo",
+};
+
+const connectors = connectorsForWallets([
+  ...wallets,
+  {
+    groupName: "Other",
+    wallets: [
+      trustWallet({ projectId, chains }),
+      ledgerWallet({ projectId, chains }),
+    ],
+  },
+]);
+
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient,
+  webSocketPublicClient,
+});
+
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <NavBar />
-      <div className="w-100 h-screen flex justify-center items-center">
-        <GainsightWrapper scriptContent="" isHelmet={true}>
-          <Component {...pageProps} />
-        </GainsightWrapper>
-      </div>
-    </>
-  )
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider
+        appInfo={demoAppInfo}
+        modalSize="compact"
+        chains={chains}
+        theme={darkTheme({
+          accentColor: "#F9F7FF",
+          accentColorForeground: "#03001A",
+        })}
+      >
+        <script
+          data-goatcounter="https://whoolapp.goatcounter.com/count"
+          async
+          src="//gc.zgo.at/count.js"
+        ></script>
+        <Component {...pageProps} />
+        <Toaster />
+      </RainbowKitProvider>
+    </WagmiConfig>
+  );
 }
+
+export default MyApp;
