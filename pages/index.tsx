@@ -64,13 +64,13 @@ const Home: NextPage = () => {
   const weiFee = 1000000000000000;
 
   // States for editing
-  const [editableWhool, setEditableWhool] = useState(null);
-  const [selectedWhoolURL, setSelectedWhoolURL] = useState(null);
+  const [editableWhool, setEditableWhool] = useState<string | null>(null);
+  const [selectedWhoolURL, setSelectedWhoolURL] = useState<string | null>(null);
   const [ownedWhools, setOwnedWhools] = useState([]);
   const [tokenIdToUdpate, setTokenIdToUpdate] = useState(null);
-  const [newURL, setNewURL] = useState(null);
-  const editUrlInputRef = useRef();
-  const [truncatedUrl, setTruncatedUrl] = useState(null);
+  const [newURL, setNewURL] = useState<string | null>(null);
+  const editUrlInputRef = useRef<HTMLInputElement | null>(null);
+  const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
 
   // minting functions
   const { config: mintConfig, isError: prepareMintError } =
@@ -156,17 +156,19 @@ const Home: NextPage = () => {
   });
 
   const copyWhool = () => {
-    navigator.clipboard.writeText(editableWhool);
-    toast({
-      title: "Whool copied to clipboard",
-    });
+    if (editableWhool !== null) {
+      navigator.clipboard.writeText(editableWhool);
+      toast({
+        title: "Whool copied to clipboard",
+      });
+    }
   };
 
   useEffect(() => {
     console.log(editableWhool);
     console.log(whoolURLResult.data);
-    setSelectedWhoolURL(whoolURLResult.data);
-    setTokenIdToUpdate(whoolToUpdateResult.data);
+    setSelectedWhoolURL(whoolURLResult.data as any);
+    setTokenIdToUpdate(whoolToUpdateResult.data as any);
   }, [editableWhool]);
 
   //Edit config
@@ -205,7 +207,9 @@ const Home: NextPage = () => {
   });
 
   const openNewUrl = () => {
-    window.open(newURL, "_blank");
+    if (newURL !== null) {
+      window.open(newURL, "_blank");
+    }
   };
 
   const handleEdit = async () => {
@@ -304,7 +308,7 @@ const Home: NextPage = () => {
         </p>
         <div>
           <Link
-            class="text-xs text-muted-foreground"
+            className="text-xs text-muted-foreground"
             href={"https://whool.art/whool"}
           >
             Example: https://whool.art/whool
@@ -323,7 +327,7 @@ const Home: NextPage = () => {
             </TabsTrigger>
             <TabsTrigger
               value="Earn"
-              onClick={address ? null : openConnectModal}
+              onClick={address ? () => {} : openConnectModal}
             >
               Earn
             </TabsTrigger>
@@ -357,7 +361,7 @@ const Home: NextPage = () => {
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="whool">Customize whool (optional)</Label>
-                  <p class="text-xs text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     Referrer in 9/10 cases with custom vs 7/10 otherwise
                   </p>
                   <Input
@@ -389,7 +393,7 @@ const Home: NextPage = () => {
                     Validate mint and wait
                   </Button>
                 )}
-                <p class="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   whool will be minted as NFT, yours forever, 1% royalty
                 </p>
               </CardFooter>
@@ -406,7 +410,7 @@ const Home: NextPage = () => {
               <CardContent className="space-y-2">
                 <div className="space-y-1" style={{ flexDirection: "row" }}>
                   <Label htmlFor="current">Select Whool</Label>
-                  <div class="flex flex-row">
+                  <div className="flex flex-row">
                     <Select
                       onValueChange={(currentValue) => {
                         setEditableWhool(currentValue.substring(1));
@@ -420,7 +424,7 @@ const Home: NextPage = () => {
                       </SelectTrigger>
                       <SelectContent>
                         {ownedWhools ? (
-                          ownedWhools.map((whool) => (
+                          ownedWhools.map((whool: any) => (
                             <SelectItem value={whool.name} key={whool.name}>
                               {whool.name}
                             </SelectItem>
@@ -509,7 +513,7 @@ const Home: NextPage = () => {
               <CardContent className="space-y-2">
                 <div className="space-y-1">
                   <Label htmlFor="current">Your referral link</Label>
-                  <div class="flex flex-row">
+                  <div className="flex flex-row">
                     <Input
                       disabled
                       id="referral"

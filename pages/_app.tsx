@@ -15,9 +15,16 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 
 import { Toaster } from "../components/ui/toaster";
 
+let apiKey = process.env.alchemy_key;
+if (apiKey === undefined) {
+  // Handle the case where the API key is not defined.
+  // For example, you could throw an error or use a default value.
+  throw new Error("Alchemy API key is not defined");
+}
+
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [optimismGoerli],
-  [publicProvider(), alchemyProvider({ apiKey: process.env.alchemy_key })],
+  [publicProvider(), alchemyProvider({ apiKey: apiKey })],
 );
 
 const projectId = "Whool App";

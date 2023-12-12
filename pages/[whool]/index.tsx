@@ -17,20 +17,20 @@ export default function Link() {
   const router = useRouter();
   const usedWhool = router.query.whool;
   const whoolAddress = "0xccd1f91f4cd7c52f091b68dcc66d9028ef0d4008";
-  const [whoolUrl, setWhoolUrl] = useState(null);
+  const [whoolUrl, setWhoolUrl] = useState<string | null>(null);
   const [whoolId, setWhoolId] = useState(null);
   const [whoolOwner, setWhoolOwner] = useState(null);
   const [whoolMetaData, setWhoolMetaData] = useState(null);
-  const [truncatedUrl, setTruncatedUrl] = useState(null);
+  const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
   const [randomReferrer, setRandomReferrer] = useState(null);
   const [randomZora, setRandomZora] = useState(null);
-  const [zoraLink, setZoraLink] = useState(null);
+  const [zoraLink, setZoraLink] = useState<string | null>(null);
   const [zoraImage, setZoraImage] = useState(null);
   const [zoraTitle, setZoraTitle] = useState(null);
   const [zoraCreator, setZoraCreator] = useState(null);
   const [zoraType, setZoraType] = useState(null);
   const [zoraSize, setZoraSize] = useState(null);
-  const [aspectRatio, setAspectRatio] = useState(null);
+  const [aspectRatio, setAspectRatio] = useState<number | null>(null);
 
   // fetching whool url, owner and data
   const {
@@ -44,7 +44,7 @@ export default function Link() {
     functionName: "getURL",
     args: [usedWhool],
     watch: false,
-  });
+  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
   const {
     data: idData,
     isError: idError,
@@ -56,7 +56,7 @@ export default function Link() {
     functionName: "whoolToTokenId",
     args: [usedWhool],
     watch: false,
-  });
+  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
   const {
     data: ownerData,
     isError: ownerError,
@@ -68,7 +68,7 @@ export default function Link() {
     functionName: "ownerOf",
     args: [idData],
     watch: false,
-  });
+  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
   const {
     data: metaData,
     isError: metaDataError,
@@ -80,7 +80,7 @@ export default function Link() {
     functionName: "tokenIdToWhoolData",
     args: [whoolId],
     watch: false,
-  });
+  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
   const metaDataResult = metaData;
   const {
     data: contractOwnerData,
@@ -92,7 +92,7 @@ export default function Link() {
     abi: abi,
     functionName: "owner",
     watch: false,
-  });
+  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
   const contractOwner = contractOwnerData;
 
   useEffect(() => {
@@ -172,7 +172,7 @@ export default function Link() {
     // Height is more than twice the width
     cardWidthClass = "max-w-[10%]";
     cardWidthClassMd = "md:max-w-[15%]";
-  } else if (aspectRatio < 1) {
+  } else if (aspectRatio !== null && aspectRatio < 1) {
     // Portrait
     cardWidthClass = "max-w-[40%]";
     cardWidthClassMd = "md:max-w-[55%]";
@@ -180,15 +180,18 @@ export default function Link() {
     // Square
     cardWidthClass = "max-w-[50%]";
     cardWidthClassMd = "md:max-w-[60%]";
-  } else if (aspectRatio <= 2) {
+  } else if (aspectRatio !== null && aspectRatio <= 2) {
     // Landscape
     cardWidthClass = "max-w-[50%]";
     cardWidthClassMd = "md:max-w-[60%]";
-  } else if (aspectRatio > 2) {
+  } else if (aspectRatio !== null && aspectRatio > 2) {
     // Width is more than twice the height
     cardWidthClass = "max-w-[80%]";
     cardWidthClassMd = "md:max-w-[90%]";
-  } else if (aspectRatio > 5 || aspectRatio < 0.01) {
+  } else if (
+    (aspectRatio !== null && aspectRatio > 5) ||
+    (aspectRatio !== null && aspectRatio < 0.01)
+  ) {
     cardWidthClass = "max-w-[50%]";
     cardWidthClassMd = "md:max-w-[60%]";
   } else {
@@ -198,13 +201,17 @@ export default function Link() {
 
   //buttons links management
   const openZora = () => {
-    window.open(zoraLink, "_blank");
+    if (zoraLink !== null) {
+      window.open(zoraLink, "_blank");
+    }
   };
   const openWhool = () => {
     window.open("https://wl69ng-3000.csb.app?r=" + randomReferrer, "_blank");
   };
   const openUrl = () => {
-    window.open(whoolUrl, "_blank");
+    if (whoolUrl !== null) {
+      window.open(whoolUrl, "_blank");
+    }
   };
 
   return (

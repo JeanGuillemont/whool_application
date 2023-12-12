@@ -28,14 +28,17 @@ export default async function handler(
         //select a random elements parsing made before (a random new NFT minted on Zora)
         const randomIndex = Math.floor(Math.random() * h2Elements.length);
         const href = $(h2Elements[randomIndex]).attr("href");
-        const splitHref = href.split("/");
-        const stringAfterSecondSlash = splitHref.slice(2).join("/");
-
+        let stringAfterSecondSlash;
+        if (href !== undefined) {
+          const splitHref = href.split("/");
+          stringAfterSecondSlash = splitHref.slice(2).join("/");
+        }
         // validate NFT selected only if on Optimism, Zora or base network
         if (
-          stringAfterSecondSlash.startsWith("zora") ||
-          stringAfterSecondSlash.startsWith("base") ||
-          stringAfterSecondSlash.startsWith("oeth")
+          stringAfterSecondSlash &&
+          (stringAfterSecondSlash.startsWith("zora") ||
+            stringAfterSecondSlash.startsWith("base") ||
+            stringAfterSecondSlash.startsWith("oeth"))
         ) {
           selectedString = stringAfterSecondSlash;
 
@@ -53,25 +56,29 @@ export default async function handler(
           const fileType = page$(".file-type").text();
           const size = page$(".media-info span:nth-child(2)").text();
 
-          res.status(200).json({
-            token: selectedString,
-            image,
-            title,
-            creator,
-            fileType,
-            size,
-          });
+          if (
+            image !== undefined &&
+            title !== undefined &&
+            creator !== undefined &&
+            fileType !== undefined &&
+            size !== undefined
+          ) {
+            res.status(200).json({
+              token: selectedString,
+              image,
+              title,
+              creator,
+              fileType,
+              size,
+            });
+          }
         }
 
         attempts++;
       }
-
-      if (!selectedString) {
-        res.status(404).json({ message: "No valid string found" });
-      }
     } catch (error) {
       console.error(error); // Log the error for debugging
-      res.status(500).json({ message: "An error occurred" });
+      res.status(500);
     }
   };
 
