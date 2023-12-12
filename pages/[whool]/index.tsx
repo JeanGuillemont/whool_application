@@ -4,7 +4,6 @@ import { useContractRead } from "wagmi";
 import { Button } from "../../components/ui/button";
 import abi from "../../lib/abi.json";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Card,
   CardContent,
