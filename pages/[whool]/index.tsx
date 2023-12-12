@@ -96,10 +96,8 @@ export default function Link() {
   const contractOwner = contractOwnerData;
 
   useEffect(() => {
-    if (urlData.length > 1 && idData.length > 1) {
-      setWhoolUrl(urlData);
-      setWhoolId(idData);
-    }
+    setWhoolUrl(urlData);
+    setWhoolId(idData);
   }, [usedWhool]);
 
   useEffect(() => {
