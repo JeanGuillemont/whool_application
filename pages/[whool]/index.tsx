@@ -282,6 +282,7 @@ export default function Link() {
                 {zoraImage && zoraLink && zoraCreator ? (
                   <Image
                     src={zoraImage}
+                    alt="Random Zora NFT"
                     width={0}
                     height={0}
                     sizes="100vw"
