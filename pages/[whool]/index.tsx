@@ -235,7 +235,7 @@ export default function Link() {
                 {whoolUrl ? (
                   <CardTitle>You visited a link shorten with whool !</CardTitle>
                 ) : (
-                  <CardTitle>Whoops ! Whool doesn't exist</CardTitle>
+                  <CardTitle>Whoops ! Whool do not exist</CardTitle>
                 )}
               </CardHeader>
               <CardContent className="space-y-2 px-3 md:px-3">
