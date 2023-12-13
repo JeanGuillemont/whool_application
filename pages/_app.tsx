@@ -15,7 +15,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 
 import { Toaster } from "../components/ui/toaster";
 
-let apiKey = process.env.alchemy_key;
+let apiKey = process.env.ALCHEMY;
 if (apiKey === undefined) {
   // Handle the case where the API key is not defined.
   // For example, you could throw an error or use a default value.
