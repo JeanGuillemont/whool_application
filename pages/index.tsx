@@ -137,7 +137,6 @@ const Home: NextPage = () => {
     let response = await alchemy.nft.getNftsForOwner(owner, options);
     let whools = response.ownedNfts;
     //Logging the response to the console
-    console.log(whools);
     setOwnedWhools(whools);
   };
 
