@@ -78,7 +78,7 @@ const fetchZora = async () => {
 // Function to update the cache
 const updateCache = async () => {
   const data = await fetchZora();
-  cache = data;
+  cache = data as any;
   cacheTimestamp = Date.now();
 };
 
