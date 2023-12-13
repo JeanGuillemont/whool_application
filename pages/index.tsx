@@ -164,8 +164,6 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    console.log(editableWhool);
-    console.log(whoolURLResult.data);
     setSelectedWhoolURL(whoolURLResult.data as any);
     setTokenIdToUpdate(whoolToUpdateResult.data as any);
   }, [editableWhool]);
