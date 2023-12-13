@@ -17,7 +17,10 @@ import { Toaster } from "../components/ui/toaster";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [optimismGoerli],
-  [publicProvider(), alchemyProvider({ apiKey: process.env.ALCHEMY })],
+  [
+    publicProvider(),
+    alchemyProvider({ apiKey: process.env.ALCHEMY as string }),
+  ],
 );
 
 const projectId = "Whool App";
