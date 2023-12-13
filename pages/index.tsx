@@ -552,7 +552,7 @@ const Home: NextPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-      <div class="flex justify-end space-x-4 m-2 absolute bottom-0 right-0">
+      <div className="flex justify-end space-x-4 m-2 absolute bottom-0 right-0">
         <Link href="https://github.com/JeanGuillemont/whool_application/tree/main?tab=readme-ov-file#FAQ">
           FAQ
         </Link>
