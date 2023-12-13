@@ -268,6 +268,7 @@ const Home: NextPage = () => {
       });
     },
     onSuccess(data) {
+      const userEarnings = 0;
       toast({
         title: "Claimed",
       });
