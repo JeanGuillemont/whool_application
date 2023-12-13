@@ -206,7 +206,7 @@ export default function Link() {
     }
   };
   const openWhool = () => {
-    window.open("https://wl69ng-3000.csb.app?r=" + randomReferrer, "_blank");
+    window.open("https://whool.art?r=" + randomReferrer, "_blank");
   };
   const openUrl = () => {
     if (whoolUrl !== null) {
@@ -223,6 +223,7 @@ export default function Link() {
             alt="Whool Logo"
             width={150}
             height={150}
+            onClick={openWhool}
           />
         </div>
         <Button
