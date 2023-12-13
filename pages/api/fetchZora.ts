@@ -64,7 +64,7 @@ export default async function handler(
       size !== undefined
     ) {
       res.status(200).json({
-        token: selectedString,
+        token: selectedString as any,
         image,
         title,
         creator,
