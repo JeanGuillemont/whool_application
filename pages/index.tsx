@@ -78,7 +78,15 @@ const Home: NextPage = () => {
       address: whoolAddress,
       abi: abi,
       functionName: "mintWhool",
-      args: [url, whool, wReferrer ? wReferrer : noReferrer],
+      args: [
+        url,
+        whool,
+        wReferrer
+          ? wReferrer !== address
+            ? wReferrer
+            : noReferrer
+          : noReferrer,
+      ],
       value: whool.length > 0 ? BigInt(weiFee) : BigInt(0),
     });
   const {
