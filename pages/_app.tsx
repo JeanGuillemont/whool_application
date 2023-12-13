@@ -15,11 +15,9 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 
 import { Toaster } from "../components/ui/toaster";
 
-let alchemyKey = process.env.ALCHEMY;
-
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [optimismGoerli],
-  [publicProvider(), alchemyProvider({ apiKey: alchemyKey })],
+  [publicProvider(), alchemyProvider({ apiKey: process.env.ALCHEMY })],
 );
 
 const projectId = "Whool App";
