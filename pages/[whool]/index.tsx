@@ -295,6 +295,7 @@ export default function Link() {
                     width={0}
                     height={0}
                     sizes="100vw"
+                    priority={true}
                     className="rounded-xl w-[100%] h-auto flex"
                   />
                 ) : null}
