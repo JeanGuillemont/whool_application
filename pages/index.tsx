@@ -99,7 +99,6 @@ const Home: NextPage = () => {
     onSuccess(data) {
       toast({
         title: "Whool Minted !",
-        description: "https://whool.art/" + whool,
         action: (
           <ToastAction altText="Check" onClick={openZorinc}>
             Check on Zorinc
@@ -157,7 +156,8 @@ const Home: NextPage = () => {
 
   const copyWhool = () => {
     if (editableWhool !== null) {
-      navigator.clipboard.writeText(editableWhool);
+      const whoolToCopy = "https://whool.art/" + editableWhool;
+      navigator.clipboard.writeText(whoolToCopy);
       toast({
         title: "Whool copied to clipboard",
       });
@@ -196,7 +196,6 @@ const Home: NextPage = () => {
     onSuccess(data) {
       toast({
         title: "Whool URL edited !",
-        description: "https://whool.art/" + whool,
         action: (
           <ToastAction altText="Check" onClick={openNewUrl}>
             Check Whool
