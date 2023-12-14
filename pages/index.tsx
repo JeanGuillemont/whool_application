@@ -67,6 +67,7 @@ const Home: NextPage = () => {
   const [newURL, setNewURL] = useState<string | null>(null);
   const editUrlInputRef = useRef<HTMLInputElement | null>(null);
   const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
+  const [mintHash, setMintHash] = useState<string | null>(null);
 
   // minting functions
   const { config: mintConfig, isError: prepareMintError } =
@@ -101,6 +102,13 @@ const Home: NextPage = () => {
       });
     },
     onSuccess(data) {
+      const fetchMintData = async () => {
+        const txHash = mintData.hash;
+        //Call the method
+        const response = await alchemy.transact.waitForTransaction(txHash);
+        console.log(response);
+      }
+      fetchMintData();
       toast({
         title: "Whool Minted !",
         action: (
