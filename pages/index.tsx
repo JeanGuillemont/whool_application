@@ -13,6 +13,7 @@ import {
   useContractRead,
   useContractInfiniteReads,
   paginatedIndexesConfig,
+  useWaitForTransaction
 } from "wagmi";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -102,15 +103,12 @@ const Home: NextPage = () => {
       });
     },
     onSuccess(data) {
-      const fetchMintData = async () => {
-        if (mintData){
-        const txHash = mintData.hash as any;
-        //Call the method
-        const response = await alchemy.transact.waitForTransaction(txHash);
-        console.log(response);
-        }
+      if (mintData){
+        setMintHash(mintData.hash);
+        console.log(mintHash);
+        const hashResponse = hashData as any;
+        console.log(hashResponse)
       }
-      fetchMintData();
       toast({
         title: "Whool Minted !",
         action: (
@@ -121,6 +119,10 @@ const Home: NextPage = () => {
       });
     },
   });
+
+  const { data: hashData, isError : hashError, isLoading: hashLoading } = useWaitForTransaction({
+    hash: mintHash,
+  })
 
   const openZorinc = () => {
     window.open(
