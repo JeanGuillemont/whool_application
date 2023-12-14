@@ -1,10 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
-import {
-  ClipboardIcon,
-  UpdateIcon,
-  ExternalLinkIcon,
-} from "@radix-ui/react-icons";
+import { ClipboardIcon, UpdateIcon } from "@radix-ui/react-icons";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";

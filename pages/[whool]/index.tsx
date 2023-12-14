@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useContractRead } from "wagmi";
+import { UpdateIcon } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
 import abi from "../../lib/abi.json";
 import Image from "next/image";
@@ -298,7 +299,9 @@ export default function Link() {
                     priority={true}
                     className="rounded-xl w-[100%] h-auto flex"
                   />
-                ) : null}
+                ) : (
+                  <p>Fetching NFT...</p> // This will be displayed while the data is loading
+                )}
               </CardContent>
               <CardFooter className="flex justify-between items-center p-0.5 md:p-0.5">
                 <div className="w-[40%] text-xs ml-2 ">
