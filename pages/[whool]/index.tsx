@@ -300,7 +300,7 @@ export default function Link() {
                     className="rounded-xl w-[100%] h-auto flex"
                   />
                 ) : (
-                  <p>Fetching NFT...</p> // This will be displayed while the data is loading
+                  <UpdateIcon className="place-self-center h-6 w-6 animate-spin" />
                 )}
               </CardContent>
               <CardFooter className="flex justify-between items-center p-0.5 md:p-0.5">
