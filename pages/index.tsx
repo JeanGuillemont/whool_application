@@ -96,7 +96,6 @@ const {
  },
  onSuccess(data) {
    const txHash = data.hash;
-   console.log(data.hash);
    setMintHash(txHash);
  },
 });
@@ -108,7 +107,6 @@ const {
 } = useWaitForTransaction({
  hash: mintHash as any,
  onSuccess: async (data) => {
-   console.log(data);
    const fetchMintedWhool = async () => {
      let logs = data.logs;
      // Filter out the logs that have the Transfer event signature
@@ -130,7 +128,6 @@ const {
        tokenId,
        {},
      );
-     console.log(response);
      setMintedWhool(response.name);
    };
    await fetchMintedWhool();
@@ -139,7 +136,6 @@ const {
 
 useEffect(() => {
  if (mintedWhool) {
-   console.log(mintedWhool);
    toast({
      title: "URL shorten and whool minted !",
      description: "https://whool.art" + mintedWhool,
