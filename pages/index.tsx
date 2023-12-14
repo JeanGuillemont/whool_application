@@ -103,8 +103,8 @@ const Home: NextPage = () => {
       });
     },
     onSuccess(data) {
-      if (mintData){
-        setMintHash(mintData.hash);
+      if (data){
+        setMintHash(data.hash);
         console.log(mintHash);
         const hashResponse = hashData as any;
         console.log(hashResponse)
