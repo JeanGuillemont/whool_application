@@ -121,7 +121,7 @@ const Home: NextPage = () => {
   });
 
   const { data: hashData, isError : hashError, isLoading: hashLoading } = useWaitForTransaction({
-    hash: mintHash,
+    hash: mintHash as any,
   })
 
   const openZorinc = () => {
