@@ -103,7 +103,7 @@ const Home: NextPage = () => {
     },
     onSuccess(data) {
       const fetchMintData = async () => {
-        if (mintData !== null){
+        if (mintData){
         const txHash = mintData.hash as any;
         //Call the method
         const response = await alchemy.transact.waitForTransaction(txHash);
