@@ -123,7 +123,7 @@ const {
      // The token ID is in the third topic of the log
      let tokenIdHex = mintLog.topics[3];
      // Convert the token ID from hexadecimal to decimal
-     let tokenId = parseInt(tokenIdHex, 16);
+     let tokenId = parseInt(tokenIdHex as any, 16);
      console.log("Token ID: ", tokenId);
      let response = await alchemy.nft.getNftMetadata(
        whoolAddress,
