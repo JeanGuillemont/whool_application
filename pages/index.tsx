@@ -102,18 +102,18 @@ const Home: NextPage = () => {
         description: error.message,
       });
     },
-    onSuccess(data) {
-      if (data){
-        setMintHash(data.hash);
+    onSuccess(mintData) {
+      if (mintData){
+        setMintHash(mintData.hash);
         console.log(mintHash);
         const hashResponse = hashData as any;
         console.log(hashResponse)
       }
       toast({
-        title: "Whool Minted !",
+        title: "URL shorten and whool minted !",
         action: (
-          <ToastAction altText="Check" onClick={openZorinc}>
-            Check on Zorinc
+          <ToastAction altText="copy" onClick={openZorinc}>
+            Copy short link
           </ToastAction>
         ),
       });
