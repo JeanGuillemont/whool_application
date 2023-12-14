@@ -106,7 +106,7 @@ const {
  isError: hashError,
  isLoading: hashLoading,
 } = useWaitForTransaction({
- hash: mintHash,
+ hash: mintHash as any,
  onSuccess: async (data) => {
    console.log(data);
    const fetchMintedWhool = async () => {
