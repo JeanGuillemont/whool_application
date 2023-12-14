@@ -96,7 +96,7 @@ export default async function handler(
 
   // If the cache is still null, send an error response
   if (cache === null) {
-    res.status(500).json({ error: "Failed to fetch data" });
+    res.status(500);
     return;
   }
 
