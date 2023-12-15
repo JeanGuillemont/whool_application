@@ -68,6 +68,7 @@ const Home: NextPage = () => {
   const [newURL, setNewURL] = useState<string | null>(null);
   const editUrlInputRef = useRef<HTMLInputElement | null>(null);
   const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
+  const [editHash, setEditHash] = useState<string | null>(null);
 
   // minting functions
   const { config: mintConfig, isError: prepareMintError } =
@@ -227,15 +228,24 @@ const Home: NextPage = () => {
       });
     },
     onSuccess(data) {
+      const txHash = data.hash;
+      setEditHash(txHash);
+    },
+  });
+
+  const {data: editHashData, OnSuccess: editHashSuccess} = useWaitForTransaction ({
+    hash: editHash as any;
+    onSuccess(data){
       toast({
         title: "Whool URL edited !",
+        description: "https://whool.art/" + whool,
         action: (
           <ToastAction altText="Check" onClick={openEditedWhool}>
             Check Whool
           </ToastAction>
         ),
       });
-    },
+    }
   });
 
   const openEditedWhool = () => {
