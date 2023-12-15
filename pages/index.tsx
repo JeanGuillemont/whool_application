@@ -295,7 +295,7 @@ const Home: NextPage = () => {
     args: [address],
   });
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
-  if (userEarnings > 0 && userEarnings > userClaimable){ 
+  if (userEarnings > 0 && userClaimable == null){ 
     setUserClaimable(userEarnings)
   };
 
