@@ -314,6 +314,7 @@ const Home: NextPage = () => {
   const handleClaim = async () => {
     if (claimWrite) {
       await claimWrite();
+      const userEarnings = 0;
     }
   };
 
