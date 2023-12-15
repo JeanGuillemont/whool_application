@@ -11,7 +11,7 @@ import {
   useContractWrite,
   usePrepareContractWrite,
   useContractRead,
-  useWaitForTransaction
+  useWaitForTransaction,
 } from "wagmi";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -68,89 +68,88 @@ const Home: NextPage = () => {
   const [newURL, setNewURL] = useState<string | null>(null);
   const editUrlInputRef = useRef<HTMLInputElement | null>(null);
   const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
-  
 
- // minting functions
- const { config: mintConfig, isError: prepareMintError } =
- usePrepareContractWrite({
-   address: whoolAddress,
-   abi: abi,
-   functionName: "mintWhool",
-   args: [url, whool, wReferrer ? wReferrer : noReferrer],
-   value: whool.length > 0 ? BigInt(weiFee) : BigInt(0),
- });
-const {
- data: mintData,
- isError: mintError,
- isSuccess: mintSuccess,
- isLoading: mintLoading,
- write: mintWrite,
-} = useContractWrite({
- ...mintConfig,
- onError(error) {
-   toast({
-     variant: "destructive",
-     title: "Sorry, something went wrong.",
-     description: error.message,
-   });
- },
- onSuccess(data) {
-   const txHash = data.hash;
-   setMintHash(txHash);
- },
-});
+  // minting functions
+  const { config: mintConfig, isError: prepareMintError } =
+    usePrepareContractWrite({
+      address: whoolAddress,
+      abi: abi,
+      functionName: "mintWhool",
+      args: [url, whool, wReferrer ? wReferrer : noReferrer],
+      value: whool.length > 0 ? BigInt(weiFee) : BigInt(0),
+    });
+  const {
+    data: mintData,
+    isError: mintError,
+    isSuccess: mintSuccess,
+    isLoading: mintLoading,
+    write: mintWrite,
+  } = useContractWrite({
+    ...mintConfig,
+    onError(error) {
+      toast({
+        variant: "destructive",
+        title: "Sorry, something went wrong.",
+        description: error.message,
+      });
+    },
+    onSuccess(data) {
+      const txHash = data.hash;
+      setMintHash(txHash);
+    },
+  });
 
-const {
- data: hashData,
- isError: hashError,
- isLoading: hashLoading,
-} = useWaitForTransaction({
- hash: mintHash as any,
- onSuccess: async (data) => {
-   const fetchMintedWhool = async () => {
-     let logs = data.logs;
-     // Filter out the logs that have the Transfer event signature
-     let transferEventSignature =
-       "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
-     let transferLogs = logs.filter(
-       (log) => log.topics[0] === transferEventSignature,
-     );
+  const {
+    data: hashData,
+    isError: hashError,
+    isLoading: hashLoading,
+  } = useWaitForTransaction({
+    hash: mintHash as any,
+    onSuccess: async (data) => {
+      const fetchMintedWhool = async () => {
+        let logs = data.logs;
+        // Filter out the logs that have the Transfer event signature
+        let transferEventSignature =
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
+        let transferLogs = logs.filter(
+          (log) => log.topics[0] === transferEventSignature,
+        );
 
-     // Assuming the token was minted in the first Transfer event found
-     let mintLog = transferLogs[0];
-     // The token ID is in the third topic of the log
-     let tokenIdHex = mintLog.topics[3];
-     // Convert the token ID from hexadecimal to decimal
-     let tokenId = parseInt(tokenIdHex as any, 16);
-     console.log("Token ID: ", tokenId);
-     let response = await alchemy.nft.getNftMetadata(
-       whoolAddress,
-       tokenId,
-       {},
-     );
-     setMintedWhool(response.name);
-   };
-   await fetchMintedWhool();
- },
-});
+        // Assuming the token was minted in the first Transfer event found
+        let mintLog = transferLogs[0];
+        // The token ID is in the third topic of the log
+        let tokenIdHex = mintLog.topics[3];
+        // Convert the token ID from hexadecimal to decimal
+        let tokenId = parseInt(tokenIdHex as any, 16);
+        console.log("Token ID: ", tokenId);
+        let response = await alchemy.nft.getNftMetadata(
+          whoolAddress,
+          tokenId,
+          {},
+        );
+        setMintedWhool(response.name);
+      };
+      await fetchMintedWhool();
+    },
+  });
 
-useEffect(() => {
- if (mintedWhool) {
-   toast({
-     title: "URL shorten and whool minted !",
-     description: "https://whool.art" + mintedWhool,
-     action: (
-       <ToastAction altText="copy" onClick={copyMint}>
-         Copy short link
-       </ToastAction>
-     ),
-   });
- }
-}, [mintedWhool]);
+  useEffect(() => {
+    if (mintedWhool) {
+      toast({
+        title: "URL shorten and whool minted !",
+        description: "https://whool.art" + mintedWhool,
+        action: (
+          <ToastAction altText="copy" onClick={copyMint}>
+            Copy short link
+          </ToastAction>
+        ),
+      });
+    }
+  }, [mintedWhool]);
 
-const copyMint = () => {
- navigator.clipboard.writeText("https://whool.art" + mintedWhool);
-};
+  const copyMint = () => {
+    navigator.clipboard.writeText("https://whool.art" + mintedWhool);
+  };
 
   const handleMint = async () => {
     if (mintWrite) {

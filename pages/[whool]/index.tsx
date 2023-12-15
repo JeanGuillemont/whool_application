@@ -115,7 +115,7 @@ export default function Link() {
     if (whoolUrl && whoolUrl.length > 30) {
       setTruncatedUrl(whoolUrl.slice(0, 30));
     }
-  }, [whoolUrl]);
+  }, [whoolUrl, randomZora]);
 
   //set selected referrer between contract owner and nft owner
   useEffect(() => {
@@ -132,7 +132,7 @@ export default function Link() {
 
     setRandomReferrer(referrer);
     console.log(randomReferrer);
-  }, [whoolMetaData]);
+  }, [whoolMetaData, randomZora]);
 
   // fetch Zora NFT
   useEffect(() => {
