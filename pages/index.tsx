@@ -233,7 +233,7 @@ const Home: NextPage = () => {
     },
   });
 
-  const {data: editHashData, OnSuccess: editHashSuccess} = useWaitForTransaction ({
+  const {data: editHashData, isSuccess: editHashSuccess} = useWaitForTransaction ({
     hash: editHash as any,
     onSuccess(data){
       toast({
