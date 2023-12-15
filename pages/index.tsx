@@ -432,7 +432,7 @@ const Home: NextPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                {!mintHashLoading || !mintLoading ? (
+                {!mintLoading ||!mintHashLoading ? (
                   prepareMintError ? (
                     <Button disabled variant="destructive">
                       Empty URL/Whool Unavailable
@@ -544,7 +544,7 @@ const Home: NextPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                {!editHashLoading || !editLoading ? (
+                {!editLoading || !editHashLoading ? (
                   <Button
                     onClick={handleEdit}
                     variant="secondary"
@@ -596,7 +596,7 @@ const Home: NextPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                {!claimHashLoading || !claimLoading ? (
+                {!claimLoading || !claimHashLoading ? (
                   <Button
                     disabled={userClaimable == null || !address}
                     onClick={handleClaim}
