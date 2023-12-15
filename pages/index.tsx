@@ -106,9 +106,9 @@ const Home: NextPage = () => {
   });
 
   const {
-    data: hashData,
-    isError: hashError,
-    isLoading: hashLoading,
+    data: mintHashData,
+    isError: mintHashError,
+    isLoading: mintHashLoading,
   } = useWaitForTransaction({
     hash: mintHash as any,
     onSuccess: async (data) => {
@@ -238,7 +238,7 @@ const Home: NextPage = () => {
     },
   });
 
-  const {data: editHashData, isSuccess: editHashSuccess} = useWaitForTransaction ({
+  const {data: editHashData, isSuccess: editHashSuccess, isLoading: editHashLoading} = useWaitForTransaction ({
     hash: editHash as any,
     onSuccess(data){
       toast({
@@ -327,7 +327,7 @@ const Home: NextPage = () => {
     },
   });
 
-  const {data: claimHashData, isSuccess: ClaimHashSucces} = useWaitForTransaction ({
+  const {data: claimHashData, isSuccess: claimHashSuccess, isLoading: claimHashLoading} = useWaitForTransaction ({
     hash: claimHash as any,
     onSuccess(data) {
       setUserClaimable(0);
@@ -432,7 +432,7 @@ const Home: NextPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                {!mintLoading ? (
+                {!mintHashLoading ? (
                   prepareMintError ? (
                     <Button disabled variant="destructive">
                       Empty URL/Whool Unavailable
@@ -544,7 +544,7 @@ const Home: NextPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                {!editLoading ? (
+                {!editHashLoading ? (
                   <Button
                     onClick={handleEdit}
                     variant="secondary"
@@ -596,7 +596,7 @@ const Home: NextPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                {!claimLoading ? (
+                {!claimHashLoading ? (
                   <Button
                     disabled={userClaimable == null || !address}
                     onClick={handleClaim}
