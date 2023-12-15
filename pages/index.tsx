@@ -254,7 +254,7 @@ const Home: NextPage = () => {
 
   const openEditedWhool = () => {
     if (editableWhool !== null) {
-      window.open('https://whool.art' + editableWhool, "_blank");
+      window.open('https://whool.art/' + editableWhool, "_blank");
     }
   };
 
