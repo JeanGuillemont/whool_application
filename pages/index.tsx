@@ -241,9 +241,9 @@ const Home: NextPage = () => {
   const {data: editHashData, isSuccess: editHashSuccess, isLoading: editHashLoading} = useWaitForTransaction ({
     hash: editHash as any,
     onSuccess(data){
+      setSelectedWhoolURL(newURL);
       toast({
         title: "Whool URL edited !",
-        description: "https://whool.art/" + whool,
         action: (
           <ToastAction altText="Check" onClick={openEditedWhool}>
             Check Whool
@@ -432,7 +432,7 @@ const Home: NextPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                {!mintHashLoading || !mintLoading? (
+                {!mintHashLoading || !mintLoading ? (
                   prepareMintError ? (
                     <Button disabled variant="destructive">
                       Empty URL/Whool Unavailable
