@@ -234,7 +234,7 @@ const Home: NextPage = () => {
   });
 
   const {data: editHashData, OnSuccess: editHashSuccess} = useWaitForTransaction ({
-    hash: editHash as any;
+    hash: editHash as any,
     onSuccess(data){
       toast({
         title: "Whool URL edited !",
