@@ -319,7 +319,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="p-3">
+    <div className="p-3 flex flex-col justify-between md:min-h-screen">
       <div className="flex justify-between items-center">
         <div className="self-center">
           <Image
