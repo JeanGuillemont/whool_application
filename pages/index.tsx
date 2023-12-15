@@ -295,7 +295,7 @@ const Home: NextPage = () => {
     args: [address],
   });
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
-  if (userEarnings > userClaimable){ 
+  if (userClaimable && userEarnings > userClaimable){ 
     setUserClaimable(userEarnings);
   }
 
@@ -597,7 +597,7 @@ const Home: NextPage = () => {
               <CardFooter>
                 {!claimLoading ? (
                   <Button
-                    disabled={userClaimable < 0.000000000000001 || !address}
+                    disabled={userClaimable === 0 || !address}
                     onClick={handleClaim}
                     variant="secondary"
                   >
