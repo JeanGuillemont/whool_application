@@ -41,6 +41,7 @@ import { type } from "os";
 import { useToast } from "../components/ui/use-toast";
 import { ToastAction } from "../components/ui/toast";
 import dynamic from "next/dynamic";
+import { isNull } from "util";
 
 const Home: NextPage = () => {
   //base data
@@ -589,7 +590,7 @@ const Home: NextPage = () => {
                     disabled
                     id="balance"
                     defaultValue={
-                      userClaimable as any
+                      userClaimable !== null ? userClaimable : 0
                     }
                   />
                 </div>
