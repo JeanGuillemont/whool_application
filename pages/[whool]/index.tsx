@@ -266,7 +266,7 @@ export default function Link() {
                     variant="secondary"
                     onClick={openUrl}
                   >
-                    Visit {truncatedUrl ? truncatedUrl : whoolUrl}
+                    Visit {truncatedUrl ? truncatedUrl + "..." : whoolUrl}
                   </Button>
                 ) : (
                   <Button
