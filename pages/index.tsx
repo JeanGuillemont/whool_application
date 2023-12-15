@@ -242,6 +242,9 @@ const Home: NextPage = () => {
     hash: editHash as any,
     onSuccess(data){
       setSelectedWhoolURL(newURL);
+      if (editUrlInputRef.current) {
+        editUrlInputRef.current.value = "";
+      }
       toast({
         title: "Whool URL edited !",
         action: (
@@ -262,10 +265,6 @@ const Home: NextPage = () => {
   const handleEdit = async () => {
     if (editWrite) {
       await editWrite();
-      setNewURL("");
-      if (editUrlInputRef.current) {
-        editUrlInputRef.current.value = "";
-      }
     }
   };
 

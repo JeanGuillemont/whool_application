@@ -99,14 +99,14 @@ export default function Link() {
   useEffect(() => {
     setWhoolUrl(urlData);
     setWhoolId(idData);
-  }, [usedWhool, randomZora]);
+  }, [usedWhool, randomZora, whoolAddress]);
 
   useEffect(() => {
     setWhoolOwner(ownerData);
     if (metaDataResult) {
       setWhoolMetaData(metaDataResult);
     }
-  }, [usedWhool, randomZora]);
+  }, [usedWhool, randomZora, whoolAddress]);
 
   // create truncated url
   useEffect(() => {
