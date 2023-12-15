@@ -295,9 +295,9 @@ const Home: NextPage = () => {
     args: [address],
   });
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
-  if (userEarnings > 0){ 
-    setUserClaimable(userEarnings);
-  }
+  if (userEarnings > 0 && userEarnings > userClaimable){ 
+    setUserClaimable(userEarnings)
+  };
 
   const { config: claimConfig } = usePrepareContractWrite({
     address: whoolAddress,
@@ -343,7 +343,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="p-3 flex flex-col justify-between md:min-h-screen">
+    <div className="p-3 md:min-h-screen">
       <div className="flex justify-between items-center">
         <div className="self-center">
           <Image
