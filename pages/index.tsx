@@ -70,6 +70,10 @@ const Home: NextPage = () => {
   const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
   const [editHash, setEditHash] = useState<string | null>(null);
 
+  //states for claiming
+  const [claimHash, setClaimHash] = useState<string | null>(null);
+  const [userClaimable, setUserClaimable] = useState<number | null>(0);
+
   // minting functions
   const { config: mintConfig, isError: prepareMintError } =
     usePrepareContractWrite({
@@ -291,6 +295,9 @@ const Home: NextPage = () => {
     args: [address],
   });
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
+  if (userEarnings > userClaimable){ 
+    setUserClaimable(userEarnings);
+  }
 
   const { config: claimConfig } = usePrepareContractWrite({
     address: whoolAddress,
@@ -314,17 +321,24 @@ const Home: NextPage = () => {
       });
     },
     onSuccess(data) {
-      const userEarnings = 0;
+      const txHash = data.hash;
+      setClaimHash(txHash);
+    },
+  });
+
+  const {data: claimHashData, isSuccess: ClaimHashSucces} = useWaitForTransaction ({
+    hash: claimHash as any,
+    onSuccess(data) {
+      setUserClaimable(0);
       toast({
         title: "Claimed",
       });
     },
-  });
+});
 
   const handleClaim = async () => {
     if (claimWrite) {
       await claimWrite();
-      const userEarnings = 0;
     }
   };
 
@@ -575,7 +589,7 @@ const Home: NextPage = () => {
                     disabled
                     id="balance"
                     defaultValue={
-                      userEarnings > 0.000000000000001 ? userEarnings : 0
+                      userClaimable as any
                     }
                   />
                 </div>
@@ -583,7 +597,7 @@ const Home: NextPage = () => {
               <CardFooter>
                 {!claimLoading ? (
                   <Button
-                    disabled={userEarnings < 0.000000000000001 || !address}
+                    disabled={userClaimable < 0.000000000000001 || !address}
                     onClick={handleClaim}
                     variant="secondary"
                   >
