@@ -230,7 +230,7 @@ const Home: NextPage = () => {
       toast({
         title: "Whool URL edited !",
         action: (
-          <ToastAction altText="Check" onClick={openNewUrl}>
+          <ToastAction altText="Check" onClick={openEditedWhool}>
             Check Whool
           </ToastAction>
         ),
@@ -238,9 +238,9 @@ const Home: NextPage = () => {
     },
   });
 
-  const openNewUrl = () => {
-    if (newURL !== null) {
-      window.open(newURL, "_blank");
+  const openEditedWhool = () => {
+    if (editableWhool !== null) {
+      window.open('https://whool.art' + editableWhool, "_blank");
     }
   };
 
