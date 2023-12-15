@@ -68,6 +68,8 @@ const Home: NextPage = () => {
   const [tokenIdToUdpate, setTokenIdToUpdate] = useState(null);
   const [newURL, setNewURL] = useState<string | null>(null);
   const editUrlInputRef = useRef<HTMLInputElement | null>(null);
+  const mintUrlInputRef = useRef<HTMLInputElement | null>(null);
+  const mintWhoolInputRef = useRef<HTMLInputElement | null>(null);
   const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
   const [editHash, setEditHash] = useState<string | null>(null);
 
@@ -141,6 +143,12 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (mintedWhool) {
+      if (mintUrlInputRef.current) {
+        mintUrlInputRef.current.value = "";
+      }
+      if (mintWhoolInputRef.current) {
+        mintWhoolInputRef.current.value = "";
+      }
       toast({
         title: "URL shorten and whool minted !",
         description: "https://whool.art" + mintedWhool,
@@ -413,6 +421,7 @@ const Home: NextPage = () => {
                   <Label htmlFor="url">URL to shorten</Label>
                   <Input
                     type={"url"}
+                    ref={mintUrlInputRef}
                     value={url}
                     placeholder={"https://whool.art/"}
                     onChange={(e) => setUrl(e.target.value)}
@@ -426,6 +435,7 @@ const Home: NextPage = () => {
                   <Input
                     id="whool"
                     value={whool}
+                    ref={mintWhoolInputRef}
                     placeholder={"OptionalWhool"}
                     onChange={(e) => setWhool(e.target.value)}
                   />
