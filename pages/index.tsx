@@ -72,7 +72,7 @@ const Home: NextPage = () => {
 
   //states for claiming
   const [claimHash, setClaimHash] = useState<string | null>(null);
-  const [userClaimable, setUserClaimable] = useState<number | null>(0);
+  const [userClaimable, setUserClaimable] = useState<number | null>(null);
 
   // minting functions
   const { config: mintConfig, isError: prepareMintError } =
