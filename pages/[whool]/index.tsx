@@ -97,8 +97,8 @@ export default function Link() {
   const contractOwner = contractOwnerData;
 
   useEffect(() => {
-      setWhoolUrl(urlData);
-      setWhoolId(idData);
+    setWhoolUrl(urlData);
+    setWhoolId(idData);
   }, [usedWhool, randomZora]);
 
   useEffect(() => {
