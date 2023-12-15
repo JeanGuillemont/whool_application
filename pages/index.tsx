@@ -330,7 +330,8 @@ const Home: NextPage = () => {
   const {data: claimHashData, isSuccess: claimHashSuccess, isLoading: claimHashLoading} = useWaitForTransaction ({
     hash: claimHash as any,
     onSuccess(data) {
-      setUserClaimable(0);
+      const newClaimValue = 0;
+      setUserClaimable(newClaimValue);
       toast({
         title: "Claimed",
       });
