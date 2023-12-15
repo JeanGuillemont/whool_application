@@ -138,17 +138,17 @@ const Home: NextPage = () => {
         setMintedWhool(response.name);
       };
       await fetchMintedWhool();
-    },
-  });
-
-  useEffect(() => {
-    if (mintedWhool) {
       if (mintUrlInputRef.current) {
         mintUrlInputRef.current.value = "";
       }
       if (mintWhoolInputRef.current) {
         mintWhoolInputRef.current.value = "";
       }
+    },
+  });
+
+  useEffect(() => {
+    if (mintedWhool) {
       toast({
         title: "URL shorten and whool minted !",
         description: "https://whool.art" + mintedWhool,
@@ -302,10 +302,13 @@ const Home: NextPage = () => {
     functionName: "balances",
     args: [address],
   });
+
+  useEffect(() => {
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
   if (userEarnings > 0 && userClaimable == null){ 
     setUserClaimable(userEarnings)
   };
+},[userReferralBalance, mintedWhool, editableWhool]);
 
   const { config: claimConfig } = usePrepareContractWrite({
     address: whoolAddress,
