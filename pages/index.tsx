@@ -154,9 +154,11 @@ const Home: NextPage = () => {
       });
       if (mintUrlInputRef.current) {
         mintUrlInputRef.current.value = "";
+        setUrl("");
       }
       if (mintWhoolInputRef.current) {
         mintWhoolInputRef.current.value = "";
+        setWhool("");
       }
     }
   }, [mintedWhool]);
