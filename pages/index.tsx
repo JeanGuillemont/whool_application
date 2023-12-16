@@ -319,6 +319,12 @@ const Home: NextPage = () => {
   });
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
 
+  useEffect(() => {
+    if (userEarnings !== userClaimable){
+    setUserClaimable(userEarnings);
+    }
+  },[userEarnings])
+
   const { config: claimConfig } = usePrepareContractWrite({
     address: whoolAddress,
     abi: abi,
