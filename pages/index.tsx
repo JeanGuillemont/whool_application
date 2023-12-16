@@ -321,13 +321,6 @@ const Home: NextPage = () => {
   });
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
 
-  useEffect(() => {
-  const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
-  if (userEarnings > 0 && userClaimable == null){ 
-    setUserClaimable(userEarnings)
-  };
-},[userReferralBalance, mintedWhool, editableWhool]);
-
   const { config: claimConfig } = usePrepareContractWrite({
     address: whoolAddress,
     abi: abi,

@@ -32,6 +32,7 @@ export default function Link() {
   const [zoraType, setZoraType] = useState(null);
   const [zoraSize, setZoraSize] = useState(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
+  const [whoolLink, setWhoolLink] = useState<string | null>(null);
 
   // fetching whool url, owner and data
   const {
@@ -164,6 +165,9 @@ export default function Link() {
     const randomZoraLink =
       "https://zora.co/collect/" + randomZora + "?referrer=" + randomReferrer;
     setZoraLink(randomZoraLink);
+    const whoolReferralLink = "https://whool.art?r=" + randomReferrer;
+    setWhoolLink(whoolReferralLink);
+      
   }, [randomZora]);
 
   // set limit to NFT display depending on ratio
@@ -207,7 +211,9 @@ export default function Link() {
     }
   };
   const openWhool = () => {
-    window.open("https://whool.art?r=" + randomReferrer, "_blank");
+    if (whoolLink !== null) {
+    window.open(whoolLink, "_blank");
+    }
   };
   const openUrl = () => {
     if (whoolUrl !== null) {
