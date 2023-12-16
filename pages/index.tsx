@@ -138,12 +138,6 @@ const Home: NextPage = () => {
         setMintedWhool(response.name);
       };
       await fetchMintedWhool();
-      if (mintUrlInputRef.current) {
-        mintUrlInputRef.current.value = "";
-      }
-      if (mintWhoolInputRef.current) {
-        mintWhoolInputRef.current.value = "";
-      }
     },
   });
 
@@ -158,6 +152,12 @@ const Home: NextPage = () => {
           </ToastAction>
         ),
       });
+      if (mintUrlInputRef.current) {
+        mintUrlInputRef.current.value = "";
+      }
+      if (mintWhoolInputRef.current) {
+        mintWhoolInputRef.current.value = "";
+      }
     }
   }, [mintedWhool]);
 
@@ -356,8 +356,7 @@ const Home: NextPage = () => {
   const {data: claimHashData, isSuccess: claimHashSuccess, isLoading: claimHashLoading} = useWaitForTransaction ({
     hash: claimHash as any,
     onSuccess(data) {
-      const newClaimValue = 0;
-      setUserClaimable(newClaimValue);
+      setUserClaimable(null);
       toast({
         title: "Claimed",
       });
@@ -621,7 +620,7 @@ const Home: NextPage = () => {
                     disabled
                     id="balance"
                     defaultValue={
-                      userClaimable !== null ? userClaimable : 0
+                      userClaimable && userClaimable > 0 ? userClaimable : 0
                     }
                   />
                 </div>
