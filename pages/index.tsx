@@ -175,7 +175,6 @@ const Home: NextPage = () => {
   };
 
   const initEdit = async () => {
-    setUserClaimable(userEarnings);
     setEditableWhool(null);
     setSelectedWhoolURL(null);
     setTokenIdToUpdate(null);
@@ -615,7 +614,7 @@ const Home: NextPage = () => {
                     disabled
                     id="balance"
                     defaultValue={
-                      userClaimable ? userClaimable : 0
+                      userClaimable && userClaimable>0 ? userClaimable : 0
                     }
                   />
                 </div>
