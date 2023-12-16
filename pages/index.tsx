@@ -172,6 +172,13 @@ const Home: NextPage = () => {
     }
   };
 
+  const initEdit = async () => {
+    setUserClaimable(userEarnings);
+    setEditableWhool(null);
+    setSelectedWhoolURL(null);
+    setTokenIdToUpdate(null);
+  };
+
   //edit functions
   //fetching data
   const fetchWhools = async () => {
@@ -289,6 +296,14 @@ const Home: NextPage = () => {
   }, [address]);
 
   // earn functions
+
+  const fetchClaimable = async () => {
+    setUserClaimable(userEarnings);
+    setEditableWhool(null);
+    setSelectedWhoolURL(null);
+    setTokenIdToUpdate(null);
+  };
+
   const copyReferral = () => {
     navigator.clipboard.writeText("https://whool.art?r=" + address);
     toast({
@@ -302,6 +317,7 @@ const Home: NextPage = () => {
     functionName: "balances",
     args: [address],
   });
+  const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
 
   useEffect(() => {
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
@@ -388,7 +404,9 @@ const Home: NextPage = () => {
       <div className="flex justify-center h-70 w-full">
         <Tabs defaultValue="Create" className="w-[400px] self-center">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="Create">Create</TabsTrigger>
+          <TabsTrigger value="Create" onClick={initEdit}>
+              Create
+            </TabsTrigger>
             <TabsTrigger
               value="Edit"
               onClick={address ? fetchWhools : openConnectModal}
@@ -397,7 +415,7 @@ const Home: NextPage = () => {
             </TabsTrigger>
             <TabsTrigger
               value="Earn"
-              onClick={address ? () => {} : openConnectModal}
+              onClick={address ? () => fetchClaimable : openConnectModal}
             >
               Earn
             </TabsTrigger>
