@@ -216,7 +216,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     setSelectedWhoolURL(whoolURLResult.data as any);
     setTokenIdToUpdate(whoolToUpdateResult.data as any);
-  }, [editableWhool]);
+  }, [editableWhool, whoolURLResult]);
 
   //Edit config
   const { config: editConfig } = usePrepareContractWrite({
