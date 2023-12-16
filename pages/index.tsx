@@ -297,7 +297,6 @@ const Home: NextPage = () => {
   }, [address]);
 
   // earn functions
-
   const fetchClaimable = async () => {
     setUserClaimable(userEarnings);
     setEditableWhool(null);
@@ -408,7 +407,7 @@ const Home: NextPage = () => {
             </TabsTrigger>
             <TabsTrigger
               value="Earn"
-              onClick={address ? () => fetchClaimable : openConnectModal}
+              onClick={address ? fetchClaimable : openConnectModal}
             >
               Earn
             </TabsTrigger>
