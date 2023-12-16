@@ -167,7 +167,6 @@ export default function Link() {
     setZoraLink(randomZoraLink);
     const whoolReferralLink = "https://whool.art?r=" + randomReferrer;
     setWhoolLink(whoolReferralLink);
-      
   }, [randomZora]);
 
   // set limit to NFT display depending on ratio
@@ -212,7 +211,7 @@ export default function Link() {
   };
   const openWhool = () => {
     if (whoolLink !== null) {
-    window.open(whoolLink, "_blank");
+      window.open(whoolLink, "_blank");
     }
   };
   const openUrl = () => {

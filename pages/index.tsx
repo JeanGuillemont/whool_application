@@ -351,7 +351,7 @@ const Home: NextPage = () => {
   const {data: claimHashData, isSuccess: claimHashSuccess, isLoading: claimHashLoading} = useWaitForTransaction ({
     hash: claimHash as any,
     onSuccess(data) {
-      setUserClaimable(null);
+      setUserClaimable(0);
       toast({
         title: "Claimed",
       });
@@ -615,7 +615,7 @@ const Home: NextPage = () => {
                     disabled
                     id="balance"
                     defaultValue={
-                      userClaimable && userClaimable > 0 ? userClaimable : 0
+                      userClaimable ? userClaimable : 0
                     }
                   />
                 </div>
