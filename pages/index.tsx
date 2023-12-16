@@ -627,7 +627,7 @@ const Home: NextPage = () => {
               <CardFooter>
                 {!claimLoading && !claimHashLoading ? (
                   <Button
-                    disabled={userClaimable == null || !address}
+                    disabled={userClaimable == null || !address || userClaimable == 0}
                     onClick={handleClaim}
                     variant="secondary"
                   >
