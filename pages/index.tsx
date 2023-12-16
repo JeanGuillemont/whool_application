@@ -298,7 +298,6 @@ const Home: NextPage = () => {
 
   // earn functions
   const fetchClaimable = async () => {
-    setUserClaimable(userEarnings);
     setEditableWhool(null);
     setSelectedWhoolURL(null);
     setTokenIdToUpdate(null);
