@@ -23,16 +23,15 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   ],
 );
 
-const projectId = process.env.WALLETCONNECT as string;
 
 const { wallets } = getDefaultWallets({
-  appName: "RainbowKit demo",
-  projectId,
+  appName: "whool",
+  projectId: "whool",
   chains,
 });
 
-const demoAppInfo = {
-  appName: "Rainbowkit Demo",
+const appInfo = {
+  appName: "whool",
 };
 
 const connectors = connectorsForWallets([
@@ -50,7 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider
-        appInfo={demoAppInfo}
+        appInfo={appInfo}
         modalSize="compact"
         chains={chains}
         theme={darkTheme({
