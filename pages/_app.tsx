@@ -12,7 +12,6 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { optimism } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { alchemyProvider } from "wagmi/providers/alchemy";
-
 import { Toaster } from "../components/ui/toaster";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
