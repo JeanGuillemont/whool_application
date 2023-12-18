@@ -18,7 +18,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [optimism],
   [
     publicProvider(),
-    alchemyProvider({ apiKey: process.env.ALCHEMY as string }),
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY as string }),
   ],
 );
 

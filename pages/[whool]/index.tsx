@@ -17,7 +17,7 @@ import {
 export default function Link() {
   const router = useRouter();
   const usedWhool = router.query.whool;
-  const whoolAddress = "0xccd1f91f4cd7c52f091b68dcc66d9028ef0d4008";
+  const whoolAddress = "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d";
   const [whoolUrl, setWhoolUrl] = useState<string | null>(null);
   const [whoolId, setWhoolId] = useState(null);
   const [whoolOwner, setWhoolOwner] = useState(null);

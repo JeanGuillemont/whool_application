@@ -187,7 +187,7 @@ const Home: NextPage = () => {
     //Define the optional `options` parameters
     let options = {
       contractAddresses: [
-        "0xccd1f91f4cd7c52f091b68dcc66d9028ef0d4008",
+        "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d",
         "0x0000000000000000000000000000000000000000",
       ],
     };
