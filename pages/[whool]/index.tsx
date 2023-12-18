@@ -182,11 +182,11 @@ export default function Link() {
     cardWidthClassMd = "md:max-w-[55%]";
   } else if (aspectRatio === 1) {
     // Square
-    cardWidthClass = "max-w-[50%]";
+    cardWidthClass = "max-w-[70%]";
     cardWidthClassMd = "md:max-w-[60%]";
   } else if (aspectRatio !== null && aspectRatio <= 2) {
     // Landscape
-    cardWidthClass = "max-w-[50%]";
+    cardWidthClass = "max-w-[70%]";
     cardWidthClassMd = "md:max-w-[60%]";
   } else if (aspectRatio !== null && aspectRatio > 2) {
     // Width is more than twice the height
@@ -322,6 +322,9 @@ export default function Link() {
                 </Button>
               </CardFooter>
             </Card>
+          </div>
+          <div className="flex justify-end space-x-4 m-2 absolute bottom-0 right-0">
+            <p className="text-xs"> displayed NFT are chosen randomly on zora.co, whool.art isn't responsible for what is displayed</p>
           </div>
         </div>
       </div>

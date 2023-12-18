@@ -498,6 +498,15 @@ const Home: NextPage = () => {
                 <CardDescription>
                   Edit the URL your Whool is linking to, ETH will be required
                   for transaction fee.
+                  <div>
+                    <Link
+                      className="text-xs text"
+                      href="https://whoolapp.goatcounter.com/"
+                      target="_blank"
+                    >
+                      to check your whool view stats click here
+                    </Link>
+                  </div>
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
