@@ -9,21 +9,21 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { trustWallet } from "@rainbow-me/rainbowkit/wallets";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { optimismGoerli } from "wagmi/chains";
+import { optimism } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
 import { Toaster } from "../components/ui/toaster";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [optimismGoerli],
+  [optimism],
   [
     publicProvider(),
     alchemyProvider({ apiKey: process.env.ALCHEMY as string }),
   ],
 );
 
-const projectId = "Whool App";
+const projectId = process.env.WALLETCONNECT as string;
 
 const { wallets } = getDefaultWallets({
   appName: "RainbowKit demo",

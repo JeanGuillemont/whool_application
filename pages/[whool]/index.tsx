@@ -182,7 +182,7 @@ export default function Link() {
     cardWidthClassMd = "md:max-w-[55%]";
   } else if (aspectRatio === 1) {
     // Square
-    cardWidthClass = "max-w-[70%]";
+    cardWidthClass = "max-w-[85%]";
     cardWidthClassMd = "md:max-w-[60%]";
   } else if (aspectRatio !== null && aspectRatio <= 2) {
     // Landscape
@@ -196,10 +196,10 @@ export default function Link() {
     (aspectRatio !== null && aspectRatio > 5) ||
     (aspectRatio !== null && aspectRatio < 0.01)
   ) {
-    cardWidthClass = "max-w-[50%]";
+    cardWidthClass = "max-w-[65%]";
     cardWidthClassMd = "md:max-w-[60%]";
   } else {
-    cardWidthClass = "max-w-[50%]";
+    cardWidthClass = "max-w-[65%]";
     cardWidthClassMd = "md:max-w-[60%]";
   }
 
@@ -308,7 +308,7 @@ export default function Link() {
               </CardContent>
               <CardFooter className="flex justify-between items-center p-0.5 md:p-0.5">
                 <div className="w-[40%] text-xs ml-2 ">
-                  <div className="text-xs font-bold whitespace-nowrap sm:overflow-ellipsis sm:overflow-hidden">
+                  <div className="text-xs font-bold whitespace-nowrap sm:truncate">
                     {zoraTitle}
                   </div>
                   <div className="text-xs">{zoraCreator}</div>
@@ -323,7 +323,7 @@ export default function Link() {
               </CardFooter>
             </Card>
           </div>
-          <div className="flex justify-end space-x-4 m-2 absolute bottom-0 right-0">
+          <div className="flex justify-center space-x-4 m-2 absolute bottom-0 right-0">
             <p className="text-xs"> Displayed NFT is chosen randomly on zora.co, whool.art is not responsible for what is displayed</p>
           </div>
         </div>

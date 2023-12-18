@@ -52,7 +52,7 @@ const fetchZora = async () => {
 
   // Extract the image, title, and creator, fileType and size
   const image = page$(".thumb img").attr("src");
-  const title = page$("h1 span:nth-child(1) a").text();
+  const title = page$("h1 > span:nth-child(1) a").text();
   const creator = page$(".collection-desc .commenter a").text();
   const fileType = page$(".file-type").text();
   const size = page$(".media-info span:nth-child(2)").text();
