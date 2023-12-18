@@ -41,7 +41,6 @@ import { type } from "os";
 import { useToast } from "../components/ui/use-toast";
 import { ToastAction } from "../components/ui/toast";
 import dynamic from "next/dynamic";
-import { isNull } from "util";
 
 const Home: NextPage = () => {
   //base data
@@ -70,6 +69,7 @@ const Home: NextPage = () => {
   const editUrlInputRef = useRef<HTMLInputElement | null>(null);
   const mintUrlInputRef = useRef<HTMLInputElement | null>(null);
   const mintWhoolInputRef = useRef<HTMLInputElement | null>(null);
+  const balanceInputRef = useRef<HTMLInputElement | null>(null);
   const [truncatedUrl, setTruncatedUrl] = useState<string | null>(null);
   const [editHash, setEditHash] = useState<string | null>(null);
 
@@ -301,6 +301,9 @@ const Home: NextPage = () => {
     setEditableWhool(null);
     setSelectedWhoolURL(null);
     setTokenIdToUpdate(null);
+    if (userEarnings !== userClaimable){
+      setUserClaimable(userEarnings);
+      }
   };
 
   const copyReferral = () => {
@@ -355,6 +358,9 @@ const Home: NextPage = () => {
     hash: claimHash as any,
     onSuccess(data) {
       setUserClaimable(0);
+      if (balanceInputRef.current) {
+        balanceInputRef.current.value = "0";
+      }
       toast({
         title: "Claimed",
       });
@@ -617,6 +623,7 @@ const Home: NextPage = () => {
                   <Input
                     disabled
                     id="balance"
+                    ref={balanceInputRef}
                     defaultValue={
                       userClaimable && userClaimable>0 ? userClaimable : 0
                     }
