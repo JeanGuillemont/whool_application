@@ -35,17 +35,8 @@ const demoAppInfo = {
   appName: "Rainbowkit Demo",
 };
 
-const connectors = connectorsForWallets([
-  ...wallets,
-  {
-    groupName: "Other",
-    wallets: [trustWallet({ projectId, chains })],
-  },
-]);
-
 const wagmiConfig = createConfig({
   autoConnect: true,
-  connectors,
   publicClient,
   webSocketPublicClient,
 });
