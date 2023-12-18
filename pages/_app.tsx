@@ -23,7 +23,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   ],
 );
 
-const projectId = process.env.WALLETCONNECT as string;
+const projectId = process.env.WALLETCONNECT;
 
 const { wallets } = getDefaultWallets({
   appName: "RainbowKit demo",
