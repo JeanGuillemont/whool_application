@@ -324,7 +324,7 @@ export default function Link() {
             </Card>
           </div>
           <div className="flex justify-end space-x-4 m-2 absolute bottom-0 right-0">
-            <p className="text-xs"> displayed NFT are chosen randomly on zora.co, whool.art is not responsible for what is displayed</p>
+            <p className="text-xs"> Displayed NFT is chosen randomly on zora.co, whool.art is not responsible for what is displayed</p>
           </div>
         </div>
       </div>
