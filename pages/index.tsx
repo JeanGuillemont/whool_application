@@ -44,7 +44,7 @@ import dynamic from "next/dynamic";
 
 const Home: NextPage = () => {
   //base data
-  const whoolAddress = process.env.SMARTCONTRACT as any;
+  const whoolAddress = process.env.NEXT_PUBLIC_SMARTCONTRACT as any;
   const { address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const { toast } = useToast();

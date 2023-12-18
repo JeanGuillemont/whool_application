@@ -26,7 +26,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 
 const { wallets } = getDefaultWallets({
   appName: "whool",
-  projectId: "whool",
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT as string,
   chains,
 });
 
