@@ -254,9 +254,13 @@ const Home: NextPage = () => {
     },
   });
 
-  const {data: editHashData, isSuccess: editHashSuccess, isLoading: editHashLoading} = useWaitForTransaction ({
+  const {
+    data: editHashData,
+    isSuccess: editHashSuccess,
+    isLoading: editHashLoading,
+  } = useWaitForTransaction({
     hash: editHash as any,
-    onSuccess(data){
+    onSuccess(data) {
       setSelectedWhoolURL(newURL);
       if (editUrlInputRef.current) {
         editUrlInputRef.current.value = "";
@@ -269,12 +273,12 @@ const Home: NextPage = () => {
           </ToastAction>
         ),
       });
-    }
+    },
   });
 
   const openEditedWhool = () => {
     if (editableWhool !== null) {
-      window.open('https://whool.art/' + editableWhool, "_blank");
+      window.open("https://whool.art/" + editableWhool, "_blank");
     }
   };
 
@@ -301,9 +305,9 @@ const Home: NextPage = () => {
     setEditableWhool(null);
     setSelectedWhoolURL(null);
     setTokenIdToUpdate(null);
-    if (userEarnings !== userClaimable){
+    if (userEarnings !== userClaimable) {
       setUserClaimable(userEarnings);
-      }
+    }
   };
 
   const copyReferral = () => {
@@ -322,10 +326,10 @@ const Home: NextPage = () => {
   const userEarnings = Number(userReferralBalance.data) * 10 ** -18;
 
   useEffect(() => {
-    if (userEarnings !== userClaimable){
-    setUserClaimable(userEarnings);
+    if (userEarnings !== userClaimable) {
+      setUserClaimable(userEarnings);
     }
-  },[userEarnings])
+  }, [userEarnings]);
 
   const { config: claimConfig } = usePrepareContractWrite({
     address: whoolAddress,
@@ -354,7 +358,11 @@ const Home: NextPage = () => {
     },
   });
 
-  const {data: claimHashData, isSuccess: claimHashSuccess, isLoading: claimHashLoading} = useWaitForTransaction ({
+  const {
+    data: claimHashData,
+    isSuccess: claimHashSuccess,
+    isLoading: claimHashLoading,
+  } = useWaitForTransaction({
     hash: claimHash as any,
     onSuccess(data) {
       setUserClaimable(0);
@@ -365,7 +373,7 @@ const Home: NextPage = () => {
         title: "Claimed",
       });
     },
-});
+  });
 
   const handleClaim = async () => {
     if (claimWrite) {
@@ -407,7 +415,7 @@ const Home: NextPage = () => {
       <div className="flex justify-center h-70 w-full">
         <Tabs defaultValue="Create" className="w-[400px] self-center">
           <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="Create" onClick={initEdit}>
+            <TabsTrigger value="Create" onClick={initEdit}>
               Create
             </TabsTrigger>
             <TabsTrigger
@@ -634,7 +642,7 @@ const Home: NextPage = () => {
                     id="balance"
                     ref={balanceInputRef}
                     defaultValue={
-                      userClaimable && userClaimable>0 ? userClaimable : 0
+                      userClaimable && userClaimable > 0 ? userClaimable : 0
                     }
                   />
                 </div>
@@ -642,7 +650,9 @@ const Home: NextPage = () => {
               <CardFooter>
                 {!claimLoading && !claimHashLoading ? (
                   <Button
-                    disabled={userClaimable == null || !address || userClaimable == 0}
+                    disabled={
+                      userClaimable == null || !address || userClaimable == 0
+                    }
                     onClick={handleClaim}
                     variant="secondary"
                   >
