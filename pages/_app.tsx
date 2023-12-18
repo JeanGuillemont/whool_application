@@ -23,7 +23,6 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   ],
 );
 
-
 const { wallets } = getDefaultWallets({
   appName: "whool",
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT as string,
@@ -34,9 +33,7 @@ const appInfo = {
   appName: "whool",
 };
 
-const connectors = connectorsForWallets([
-  ...wallets,
-]);
+const connectors = connectorsForWallets([...wallets]);
 
 const wagmiConfig = createConfig({
   autoConnect: true,
