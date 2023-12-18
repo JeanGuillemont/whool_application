@@ -93,7 +93,7 @@ For now the whool protocol isn't a DAO nor decentralized for one main reason. Bu
 Both application and [protocol](https://github.com/JeanGuillemont/whool_protocol/tree/main) are opensource so you can monitor that everything claimed is true. For protocol part, in any 
 
 **Is whool application private ?**
-Yes only basic analytics are followed thank to dune and [GoatCounter](https://www.goatcounter.com/)
+Yes only basic analytics are followed thank to dune and [GoatCounter](https://www.goatcounter.com/) with all data available [here](https://whoolapp.goatcounter.com/)
 
 ### License
 
