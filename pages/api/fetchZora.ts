@@ -22,10 +22,10 @@ const fetchZora = async () => {
   const $ = cheerio.load(html);
 
   // Filter valid elements
-  const validElements = $("h2")
+  const validElements = $("h2 a")
     .toArray()
     .filter((element) => {
-      const href = $(element).find("a").attr("href");
+      const href = $(element).attr("href");
       const stringAfterSecondSlash = href?.split("/").slice(2).join("/");
       return (
         stringAfterSecondSlash &&
