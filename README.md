@@ -6,7 +6,7 @@ if you want to get more information on the protocol and check its code please ha
 
 ### Summary
 
-The whool application is the onchain url shortener with NFT art on top. It aims to make short url rewarding for their creator, funnier and safer for the visitors by integrating a splash screen before link redirection.
+The whool application is an onchain url shortener with NFT art on top. It aims to make short url rewarding for their creator, funnier and safer for the visitors by integrating a splash screen before link redirection.
 
 ### Description
 
