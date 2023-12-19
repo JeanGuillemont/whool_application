@@ -27,7 +27,7 @@ const fetchZora = async () => {
     .filter((element) => {
       const href = $(element).attr("href");
       const stringAfterSecondSlash = href?.split("/").slice(2).join("/");
-      const fileType = $(element).parent().find(".file-type").text();
+      const fileType = $(element).find(".file-type").text();
       return (
         stringAfterSecondSlash &&
         (stringAfterSecondSlash.startsWith("zora") ||
