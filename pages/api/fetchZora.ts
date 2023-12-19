@@ -77,7 +77,10 @@ const fetchZora = async () => {
 
 // Function to update the cache
 const updateCache = async () => {
-  const data = await fetchZora();
+  let data = await fetchZora();
+  while (data && (data.fileType === "TEXT" || data.fileType === "3D SCENE")) {
+    data = await fetchZora();
+  }
   cache = data as any;
   cacheTimestamp = Date.now();
 };
