@@ -22,19 +22,16 @@ const fetchZora = async () => {
   const $ = cheerio.load(html);
 
   // Filter valid elements
-  const validElements = $(".edition")
+  const validElements = $("h2")
     .toArray()
     .filter((element) => {
-      const href = $(element).find("h2 a").attr("href");
+      const href = $(element).find("a").attr("href");
       const stringAfterSecondSlash = href?.split("/").slice(2).join("/");
-      const fileType = $(element).find(".file-type").text();
       return (
         stringAfterSecondSlash &&
         (stringAfterSecondSlash.startsWith("zora") ||
           stringAfterSecondSlash.startsWith("base") ||
-          stringAfterSecondSlash.startsWith("oeth")) &&
-        fileType !== "TEXT" &&
-        fileType !== "3D SCENE"
+          stringAfterSecondSlash.startsWith("oeth"))
       );
     });
 
