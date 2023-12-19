@@ -25,7 +25,7 @@ const fetchZora = async () => {
   const validElements = $(".edition")
     .toArray()
     .filter((element) => {
-      const href = $(element).find("a").attr("href");
+      const href = $(element).find(".thumb").attr("href");
       const stringAfterSecondSlash = href?.split("/").slice(2).join("/");
       const fileType = $(element).find(".file-type").text();
       return (
