@@ -27,11 +27,14 @@ const fetchZora = async () => {
     .filter((element) => {
       const href = $(element).attr("href");
       const stringAfterSecondSlash = href?.split("/").slice(2).join("/");
+      const fileType = $(element).parent().find(".file-type").text();
       return (
         stringAfterSecondSlash &&
         (stringAfterSecondSlash.startsWith("zora") ||
           stringAfterSecondSlash.startsWith("base") ||
-          stringAfterSecondSlash.startsWith("oeth"))
+          stringAfterSecondSlash.startsWith("oeth")) &&
+        fileType !== "TEXT" &&
+        fileType !== "3D SCENE"
       );
     });
 
