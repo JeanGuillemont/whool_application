@@ -62,7 +62,9 @@ const fetchZora = async () => {
     title !== undefined &&
     creator !== undefined &&
     fileType !== undefined &&
-    size !== undefined
+    size !== undefined &&
+    fileType !== "TEXT" &&
+    fileType !== "3D SCENE"
   ) {
     return {
       token: selectedString as any,
