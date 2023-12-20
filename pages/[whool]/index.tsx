@@ -245,24 +245,32 @@ export default function Link() {
           <div className="md:w-5/6 w-[90vw] z-20">
             <Card>
               <CardHeader className="text-xs md:text-sm pt-3 md:pt-3 px-3 md:px-3">
-                {whoolUrl && !randomZora ?(
+                {!whoolUrl && !randomZora ? (
                   <CardTitle>You visited a link shorten with whool !</CardTitle>
-                ):(
+                ) : (whoolUrl ? (
+                  <CardTitle>You visited a link shorten with whool !</CardTitle>
+                ) : (
+                  
                   <CardTitle>Whoops ! Whool do not exist</CardTitle>
-                )}
+                )) }
               </CardHeader>
               <CardContent className="space-y-2 px-3 md:px-3">
-                {whoolUrl && !randomZora ? (
+              {!whoolUrl && !randomZora ? (
+                  <p className="text-xs md:text-sm destructive text-muted-foreground">
+                  Visit your link below or check NFT artwork. Beware of hacks,
+                  check URL before visiting !
+                </p>
+                ) : (whoolUrl ? (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
                     Visit your link below or check NFT artwork. Beware of hacks,
                     check URL before visiting !
                   </p>
-                ):(
+                ) : (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
-                    Since you are here, take some take to check NFT artwork, or
-                    shorten your urls with whool
-                  </p>
-                )}
+                  Since you are here, take some take to check NFT artwork, or
+                  shorten your urls with whool
+                </p>
+                )) }
               </CardContent>
               <CardFooter className="p-3 md:p-3 px-3 md:px-3">
                 {!whoolUrl && !randomZora ? (<Button disabled>
