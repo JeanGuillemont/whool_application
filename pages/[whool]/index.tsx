@@ -245,14 +245,14 @@ export default function Link() {
           <div className="md:w-5/6 w-[90vw] z-20">
             <Card>
               <CardHeader className="text-xs md:text-sm pt-3 md:pt-3 px-3 md:px-3">
-                {!whoolUrl && !randomZora ?(
+                {!whoolUrl && !randomZora || whoolUrl ?(
                   <CardTitle>You visited a link shorten with whool !</CardTitle>
                 ):(
                   <CardTitle>Whoops ! Whool do not exist</CardTitle>
                 )}
               </CardHeader>
               <CardContent className="space-y-2 px-3 md:px-3">
-                {!whoolUrl && !randomZora ? (
+                {!whoolUrl && !randomZora || whoolUrl ? (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
                     Visit your link below or check NFT artwork. Beware of hacks,
                     check URL before visiting !
