@@ -182,7 +182,7 @@ export default function Link() {
     cardWidthClassMd = "md:max-w-[55%]";
   } else if (aspectRatio === 1) {
     // Square
-    cardWidthClass = "max-w-[85%]";
+    cardWidthClass = "max-w-[75%]";
     cardWidthClassMd = "md:max-w-[60%]";
   } else if (aspectRatio !== null && aspectRatio <= 2) {
     // Landscape
@@ -245,19 +245,19 @@ export default function Link() {
           <div className="md:w-5/6 w-[90vw] z-20">
             <Card>
               <CardHeader className="text-xs md:text-sm pt-3 md:pt-3 px-3 md:px-3">
-                {whoolUrl ? (
+                {!whoolUrl && !randomZora ?(
                   <CardTitle>You visited a link shorten with whool !</CardTitle>
-                ) : (
+                ):(
                   <CardTitle>Whoops ! Whool do not exist</CardTitle>
                 )}
               </CardHeader>
               <CardContent className="space-y-2 px-3 md:px-3">
-                {whoolUrl ? (
+                {!whoolUrl && !randomZora ? (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
                     Visit your link below or check NFT artwork. Beware of hacks,
                     check URL before visiting !
                   </p>
-                ) : (
+                ): (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
                     Since you are here, take some take to check NFT artwork, or
                     shorten your urls with whool
@@ -265,7 +265,11 @@ export default function Link() {
                 )}
               </CardContent>
               <CardFooter className="p-3 md:p-3 px-3 md:px-3">
-                {whoolUrl ? (
+                {!whoolUrl && !randomZora ? (<Button disabled>
+                    <UpdateIcon className="mr-2 h-4 w-4 animate-spin" />
+                    Loading
+                  </Button>) : (
+                whoolUrl ? (
                   <Button
                     className="z-20 "
                     variant="secondary"
@@ -281,7 +285,7 @@ export default function Link() {
                   >
                     Shorten urls
                   </Button>
-                )}
+                ))}
               </CardFooter>
             </Card>
           </div>
