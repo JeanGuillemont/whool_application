@@ -180,7 +180,7 @@ export default function Link() {
     cardWidthClassMd = "md:max-w-[15%]";
   } else if (aspectRatio !== null && aspectRatio < 1) {
     // Portrait
-    cardWidthClass = "max-w-[50%]";
+    cardWidthClass = "max-w-[55%]";
     cardWidthClassMd = "md:max-w-[55%]";
   } else if (aspectRatio === 1) {
     // Square
