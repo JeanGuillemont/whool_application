@@ -160,13 +160,15 @@ export default function Link() {
     setAspectRatio(aspectRatio);
   };
 
-  //create zora link
+  //create referral links
   useEffect(() => {
+    if (randomReferrer && randomZora){
     const randomZoraLink =
       "https://zora.co/collect/" + randomZora + "?referrer=" + randomReferrer;
     setZoraLink(randomZoraLink);
     const whoolReferralLink = "https://whool.art?r=" + randomReferrer;
     setWhoolLink(whoolReferralLink);
+    }
   }, [randomZora, randomReferrer]);
 
   // set limit to NFT display depending on ratio
