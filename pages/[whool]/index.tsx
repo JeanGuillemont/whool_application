@@ -306,7 +306,7 @@ export default function Link() {
               className={`min-w-[40%] ${cardWidthClass} ${cardWidthClassMd}`}
             >
               <CardContent className="space-y-2 p-0.5 md:p-0.5">
-                {zoraImage && zoraLink && zoraCreator ? (
+                {zoraImage ? (
                   <Image
                     src={zoraImage}
                     alt="Random Zora NFT"
