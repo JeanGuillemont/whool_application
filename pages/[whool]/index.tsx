@@ -328,6 +328,7 @@ export default function Link() {
                   <div className="text-xs">{zoraCreator}</div>
                 </div>
                 <Button
+                  disabled={!zoraLink}
                   className="mr-1 z-20"
                   variant="secondary"
                   onClick={openZora}
