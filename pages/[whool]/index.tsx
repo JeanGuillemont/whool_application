@@ -411,15 +411,16 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     ABI,
     "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d",
   );
-
-  const urlDataOG = await contract.methods.getURL(context.params.whool).call();
+  
+  if (context.params && context.params.whool) {
+  const urlDataOG: string | undefined = await contract.methods.getURL(context.params.whool).call();
   const idDataOG = await contract.methods
     .whoolToTokenId(context.params.whool)
     .call();
   const ownerDataOG = await contract.methods.ownerOf(idDataOG).call();
-  const metaDataOG = await contract.methods.tokenIdToWhoolData(idDataOG).call();
+  const metaDataOG:unknown[] | undefined = await contract.methods.tokenIdToWhoolData(idDataOG).call();
   const contractOwnerDataOG = await contract.methods.owner().call();
-
+  
   // Calculate referrer
   let referrerOG;
   let random = Math.random();
@@ -430,13 +431,14 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   }
   // Calculate ogLink
   const linkOG =
-    (urlDataOG.length > 40 ? urlDataOG.slice(0, 40) + "..." : urlDataOG) +
+    (urlDataOG && urlDataOG.length> 40 ? urlDataOG.slice(0, 40) + "..." : urlDataOG) +
     "&image=" +
     zoraDataOG.image +
     "&size=" +
     zoraDataOG.size;
   // Pass data to the page via props
   return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
+}
 }
 
 export default Link;

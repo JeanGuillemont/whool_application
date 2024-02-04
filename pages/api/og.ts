@@ -4,8 +4,7 @@ import { html } from "satori-html";
 import sharp from "sharp";
 
 type Data = {
-  png: BinaryData;
-  options: Array<{ Headers: { "Content-Type": string } }>;
+  framePng: BinaryData;
 };
 
 export default async function handler(
@@ -16,7 +15,7 @@ export default async function handler(
   const { link, image, size } = query;
 
   console.log(image);
-
+  if (typeof size === 'string'){
   const [width, height] = size.split("x").map(Number);
 
   const maxWidth = 400;
@@ -45,8 +44,7 @@ export default async function handler(
   console.log(fullImage);
   const encodedImage = encodeURIComponent(fullImage);
   console.log(encodedImage);
-  const imageLink =
-    "https://whool.art/_next/image?url=" + encodedImage;
+  const imageLink = "https://whool.art/_next/image?url=" + encodedImage;
   console.log(imageLink);
 
   const frameHtml = html`
@@ -57,11 +55,7 @@ export default async function handler(
         style="height: 100%; width: 50%; display: flex; flex-direction: column; background-color: #03001a; font-size: 32px; font-weight: 600;"
       >
         <div style="height: 10%; display: flex;">
-          <img
-            src="https://whool.art/whool_logo.png"
-            width="150"
-            height="45"
-          />
+          <img src="https://whool.art/whool_logo.png" width="150" height="45" />
         </div>
         <div
           style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #03001a;"
@@ -95,7 +89,7 @@ export default async function handler(
       </div>
     </div>
   `;
-  const frameSvg = await satori(frameHtml, {
+  const frameSvg = await satori(frameHtml as any, {
     width: 800,
     height: 418,
     fonts: [
@@ -114,5 +108,10 @@ export default async function handler(
   });
   const framePng = await sharp(Buffer.from(frameSvg)).webp().toBuffer();
 
-  res.send(framePng, "image/png");
+  // Set the 'Content-Type' header
+res.setHeader('Content-Type', 'image/png');
+
+// Send the image data
+res.send(framePng);
+}
 }
