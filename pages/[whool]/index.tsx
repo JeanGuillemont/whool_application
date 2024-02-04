@@ -16,8 +16,10 @@ import {
 } from "../../components/ui/card";
 import alchemy from "../../lib/alchemy";
 import Web3 from "web3";
+import type { NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
-export default function Link({ linkOG, referrerOG, urlDataOG, randomZoraOG }) {
+const Link: NextPage<any> = ({ linkOG, referrerOG, urlDataOG, randomZoraOG }) => {
   const router = useRouter();
   const usedWhool = router.query.whool;
   const whoolAddress = "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d";
@@ -246,7 +248,7 @@ export default function Link({ linkOG, referrerOG, urlDataOG, randomZoraOG }) {
         <meta property="fc:frame" content="vNext" />
         <meta
           property="fc:frame:image"
-          content={`https://jd58jw-3000.csb.app/api/og?link=${linkOG}`}
+          content={`https://whool.art/api/og?link=${linkOG}`}
         />
         <meta property="fc:frame:button:1" content="Visit URL" />
         <meta property="fc:frame:button:1:action" content="post_redirect" />
@@ -256,16 +258,16 @@ export default function Link({ linkOG, referrerOG, urlDataOG, randomZoraOG }) {
         <meta property="fc:frame:button:3:action" content="post_redirect" />
         <meta
           property="fc:frame:post_url"
-          content={`https://jd58jw-3000.csb.app/api/frame_button?referrer=${referrerOG}&link=${urlDataOG}&zora=${randomZoraOG}`}
+          content={`https://whool.art/api/frame_button?referrer=${referrerOG}&link=${urlDataOG}&zora=${randomZoraOG}`}
         />
         <meta property="og:title" content="whool preview screen" />
         <meta
           property="og:image"
-          content={`https://jd58jw-3000.csb.app/api/og?link=${linkOG}`}
+          content={`https://whool.art/api/og?link=${linkOG}`}
         />
         <meta
           name="twitter:image"
-          content={`https://jd58jw-3000.csb.app/api/og?link=${linkOG}`}
+          content={`https://whool.art/api/og?link=${linkOG}`}
         />
       </Head>
       <div className="flex justify-between items-center pb-0 md:pb-2 p-2 md:flex-col md:justify-between md:items-start md:absolute md:top-0 md:left-0 md:w-full md:h-full z-0">
@@ -395,9 +397,9 @@ export default function Link({ linkOG, referrerOG, urlDataOG, randomZoraOG }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   // Fetch data here based on context.params
-  const res = await fetch("https://jd58jw-3000.csb.app/api/fetchZora");
+  const res = await fetch("https://whool.art/api/fetchZora");
   const zoraDataOG = await res.json();
   const randomZoraOG = zoraDataOG.token;
 
@@ -436,3 +438,5 @@ export async function getServerSideProps(context) {
   // Pass data to the page via props
   return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
 }
+
+export default Link;

@@ -46,7 +46,7 @@ export default async function handler(
   const encodedImage = encodeURIComponent(fullImage);
   console.log(encodedImage);
   const imageLink =
-    "https://jd58jw-3000.csb.app/_next/image?url=" + encodedImage;
+    "https://whool.art/_next/image?url=" + encodedImage;
   console.log(imageLink);
 
   const frameHtml = html`
@@ -58,7 +58,7 @@ export default async function handler(
       >
         <div style="height: 10%; display: flex;">
           <img
-            src="https://jd58jw-3000.csb.app/whool_logo.png"
+            src="https://whool.art/whool_logo.png"
             width="150"
             height="45"
           />
