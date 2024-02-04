@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import { useContractRead } from "wagmi";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
@@ -13,8 +14,10 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
+import alchemy from "../../lib/alchemy";
+import Web3 from "web3";
 
-export default function Link() {
+export default function Link({ linkOG, referrerOG, urlDataOG, randomZoraOG }) {
   const router = useRouter();
   const usedWhool = router.query.whool;
   const whoolAddress = "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d";
@@ -31,9 +34,10 @@ export default function Link() {
   const [zoraCreator, setZoraCreator] = useState(null);
   const [zoraType, setZoraType] = useState(null);
   const [zoraSize, setZoraSize] = useState(null);
+  const [frameImage, setFrameImage] = useState<Buffer | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
   const [whoolLink, setWhoolLink] = useState<string | null>(null);
-
+  const [og, setOg] = useState<string | undefined>(undefined);
   // fetching whool url, owner and data
   const {
     data: urlData,
@@ -162,13 +166,15 @@ export default function Link() {
 
   //create referral links
   useEffect(() => {
-    if (randomReferrer && randomZora){
-    const randomZoraLink =
-      "https://zora.co/collect/" + randomZora + "?referrer=" + randomReferrer;
-    setZoraLink(randomZoraLink);
-    const whoolReferralLink = "https://whool.art?r=" + randomReferrer;
-    setWhoolLink(whoolReferralLink);
+    if (randomReferrer && randomZora) {
+      const randomZoraLink =
+        "https://zora.co/collect/" + randomZora + "?referrer=" + randomReferrer;
+      setZoraLink(randomZoraLink);
+      const whoolReferralLink = "https://whool.art?r=" + randomReferrer;
+      setWhoolLink(whoolReferralLink);
     }
+    console.log(zoraImage);
+    console.log(zoraSize);
   }, [randomZora, randomReferrer]);
 
   // set limit to NFT display depending on ratio
@@ -221,9 +227,47 @@ export default function Link() {
       window.open(whoolUrl, "_blank");
     }
   };
+  useEffect(() => {
+    if (whoolUrl && zoraImage && zoraSize && !og) {
+      const ogLink =
+        (truncatedUrl ? truncatedUrl + "..." : whoolUrl) +
+        "&image=" +
+        zoraImage +
+        "&size=" +
+        zoraSize;
+      setOg(ogLink);
+    }
+  }, [whoolUrl, zoraImage, zoraSize]);
 
+  console.log(linkOG);
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
+      <Head>
+        <meta property="fc:frame" content="vNext" />
+        <meta
+          property="fc:frame:image"
+          content={`https://jd58jw-3000.csb.app/api/og?link=${linkOG}`}
+        />
+        <meta property="fc:frame:button:1" content="Visit URL" />
+        <meta property="fc:frame:button:1:action" content="post_redirect" />
+        <meta property="fc:frame:button:2" content="Shorten URL" />
+        <meta property="fc:frame:button:2:action" content="post_redirect" />
+        <meta property="fc:frame:button:3" content="Mint on Zora" />
+        <meta property="fc:frame:button:3:action" content="post_redirect" />
+        <meta
+          property="fc:frame:post_url"
+          content={`https://jd58jw-3000.csb.app/api/frame_button?referrer=${referrerOG}&link=${urlDataOG}&zora=${randomZoraOG}`}
+        />
+        <meta property="og:title" content="whool preview screen" />
+        <meta
+          property="og:image"
+          content={`https://jd58jw-3000.csb.app/api/og?link=${linkOG}`}
+        />
+        <meta
+          name="twitter:image"
+          content={`https://jd58jw-3000.csb.app/api/og?link=${linkOG}`}
+        />
+      </Head>
       <div className="flex justify-between items-center pb-0 md:pb-2 p-2 md:flex-col md:justify-between md:items-start md:absolute md:top-0 md:left-0 md:w-full md:h-full z-0">
         <div>
           <Image
@@ -249,37 +293,37 @@ export default function Link() {
               <CardHeader className="text-xs md:text-sm pt-3 md:pt-3 px-3 md:px-3">
                 {!whoolUrl && !randomZora ? (
                   <CardTitle>You visited a link shorten with whool !</CardTitle>
-                ) : (whoolUrl ? (
+                ) : whoolUrl ? (
                   <CardTitle>You visited a link shorten with whool !</CardTitle>
                 ) : (
-                  
                   <CardTitle>Whoops ! Whool do not exist</CardTitle>
-                )) }
+                )}
               </CardHeader>
               <CardContent className="space-y-2 px-3 md:px-3">
-              {!whoolUrl && !randomZora ? (
+                {!whoolUrl && !randomZora ? (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
-                  Visit your link below or check NFT artwork. Beware of hacks,
-                  check URL before visiting !
-                </p>
-                ) : (whoolUrl ? (
+                    Visit your link below or check NFT artwork. Beware of hacks,
+                    check URL before visiting !
+                  </p>
+                ) : whoolUrl ? (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
                     Visit your link below or check NFT artwork. Beware of hacks,
                     check URL before visiting !
                   </p>
                 ) : (
                   <p className="text-xs md:text-sm destructive text-muted-foreground">
-                  Since you are here, take some take to check NFT artwork, or
-                  shorten your urls with whool
-                </p>
-                )) }
+                    Since you are here, take some take to check NFT artwork, or
+                    shorten your urls with whool
+                  </p>
+                )}
               </CardContent>
               <CardFooter className="p-3 md:p-3 px-3 md:px-3">
-                {!whoolUrl && !randomZora ? (<Button disabled>
+                {!whoolUrl && !randomZora ? (
+                  <Button disabled>
                     <UpdateIcon className="mr-2 h-4 w-4 animate-spin" />
                     Loading
-                  </Button>) : (
-                whoolUrl ? (
+                  </Button>
+                ) : whoolUrl ? (
                   <Button
                     className="z-20 "
                     variant="secondary"
@@ -295,7 +339,7 @@ export default function Link() {
                   >
                     Shorten urls
                   </Button>
-                ))}
+                )}
               </CardFooter>
             </Card>
           </div>
@@ -349,4 +393,46 @@ export default function Link() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  // Fetch data here based on context.params
+  const res = await fetch("https://jd58jw-3000.csb.app/api/fetchZora");
+  const zoraDataOG = await res.json();
+  const randomZoraOG = zoraDataOG.token;
+
+  const web3 = new Web3(
+    `https://opt-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY}`,
+  );
+  const ABI = require("./abi.json");
+  const contract = new web3.eth.Contract(
+    ABI,
+    "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d",
+  );
+
+  const urlDataOG = await contract.methods.getURL(context.params.whool).call();
+  const idDataOG = await contract.methods
+    .whoolToTokenId(context.params.whool)
+    .call();
+  const ownerDataOG = await contract.methods.ownerOf(idDataOG).call();
+  const metaDataOG = await contract.methods.tokenIdToWhoolData(idDataOG).call();
+  const contractOwnerDataOG = await contract.methods.owner().call();
+
+  // Calculate referrer
+  let referrerOG;
+  let random = Math.random();
+  if (metaDataOG && metaDataOG[2]) {
+    referrerOG = random < 0.9 ? ownerDataOG : contractOwnerDataOG;
+  } else {
+    referrerOG = random < 0.7 ? ownerDataOG : contractOwnerDataOG;
+  }
+  // Calculate ogLink
+  const linkOG =
+    (urlDataOG.length > 40 ? urlDataOG.slice(0, 40) + "..." : urlDataOG) +
+    "&image=" +
+    zoraDataOG.image +
+    "&size=" +
+    zoraDataOG.size;
+  // Pass data to the page via props
+  return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
 }
