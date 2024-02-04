@@ -4,7 +4,7 @@ import { html } from "satori-html";
 import sharp from "sharp";
 
 type Data = {
-  framePng: BinaryData;
+  framePng: Buffer;
 };
 
 export default async function handler(
@@ -47,6 +47,8 @@ export default async function handler(
   const imageLink = "https://whool.art/_next/image?url=" + encodedImage;
   console.log(imageLink);
 
+  const marginLeftPercentage = fitWidth < 400 ? (1 - fitWidth / 400) * 40 : 0;
+
   const frameHtml = html`
     <div
       style="height: 100%; width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; background-color: #03001a;"
@@ -78,7 +80,7 @@ export default async function handler(
         </div>
       </div>
       <div
-        style="display: flex; height: 50%; width: 50%; padding-right: 2%; padding-left: 5%"
+        style="display: flex; height: 50%; width: 50%; padding-right: 2%; padding-left: ${marginLeftPercentage}%;"
       >
         <img
           src="${imageLink}&w=1200&q=75"
@@ -112,6 +114,6 @@ export default async function handler(
 res.setHeader('Content-Type', 'image/png');
 
 // Send the image data
-res.send(framePng);
+res.send({framePng});
 }
 }

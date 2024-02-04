@@ -16,10 +16,15 @@ import {
 } from "../../components/ui/card";
 import alchemy from "../../lib/alchemy";
 import Web3 from "web3";
-import type { NextPage } from 'next';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import type { NextPage } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
-const Link: NextPage<any> = ({ linkOG, referrerOG, urlDataOG, randomZoraOG }) => {
+const Link: NextPage<any> = ({
+  linkOG,
+  referrerOG,
+  urlDataOG,
+  randomZoraOG,
+}) => {
   const router = useRouter();
   const usedWhool = router.query.whool;
   const whoolAddress = "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d";
@@ -395,9 +400,11 @@ const Link: NextPage<any> = ({ linkOG, referrerOG, urlDataOG, randomZoraOG }) =>
       </div>
     </div>
   );
-}
+};
 
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   // Fetch data here based on context.params
   const res = await fetch("https://whool.art/api/fetchZora");
   const zoraDataOG = await res.json();
@@ -411,34 +418,41 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     ABI,
     "0x7ed718678b22e65f803a5dc2b0107bb99c20a76d",
   );
-  
+
   if (context.params && context.params.whool) {
-  const urlDataOG: string | undefined = await contract.methods.getURL(context.params.whool).call();
-  const idDataOG = await contract.methods
-    .whoolToTokenId(context.params.whool)
-    .call();
-  const ownerDataOG = await contract.methods.ownerOf(idDataOG).call();
-  const metaDataOG:unknown[] | undefined = await contract.methods.tokenIdToWhoolData(idDataOG).call();
-  const contractOwnerDataOG = await contract.methods.owner().call();
-  
-  // Calculate referrer
-  let referrerOG;
-  let random = Math.random();
-  if (metaDataOG && metaDataOG[2]) {
-    referrerOG = random < 0.9 ? ownerDataOG : contractOwnerDataOG;
-  } else {
-    referrerOG = random < 0.7 ? ownerDataOG : contractOwnerDataOG;
+    const urlDataOG: string | undefined = await contract.methods
+      .getURL(context.params.whool)
+      .call();
+    const idDataOG = await contract.methods
+      .whoolToTokenId(context.params.whool)
+      .call();
+    const ownerDataOG = await contract.methods.ownerOf(idDataOG).call();
+    const metaDataOG: unknown[] | undefined = await contract.methods
+      .tokenIdToWhoolData(idDataOG)
+      .call();
+    const contractOwnerDataOG = await contract.methods.owner().call();
+
+    // Calculate referrer
+    let referrerOG;
+    let random = Math.random();
+    if (metaDataOG && metaDataOG[2]) {
+      referrerOG = random < 0.9 ? ownerDataOG : contractOwnerDataOG;
+    } else {
+      referrerOG = random < 0.7 ? ownerDataOG : contractOwnerDataOG;
+    }
+    // Calculate ogLink
+    const linkOG =
+      (urlDataOG && urlDataOG.length > 40
+        ? urlDataOG.slice(0, 40) + "..."
+        : urlDataOG) +
+      "&image=" +
+      zoraDataOG.image +
+      "&size=" +
+      zoraDataOG.size;
+    // Pass data to the page via props
+    return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
   }
-  // Calculate ogLink
-  const linkOG =
-    (urlDataOG && urlDataOG.length> 40 ? urlDataOG.slice(0, 40) + "..." : urlDataOG) +
-    "&image=" +
-    zoraDataOG.image +
-    "&size=" +
-    zoraDataOG.size;
-  // Pass data to the page via props
-  return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
-}
-}
+  return { props: {} };
+};
 
 export default Link;
