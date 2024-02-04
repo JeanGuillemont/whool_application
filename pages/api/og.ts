@@ -45,7 +45,7 @@ export default async function handler(
     const imageLink = "https://whool.art/_next/image?url=" + encodedImage;
     console.log(imageLink);
 
-    const marginLeftPercentage = fitWidth < 400 ? (1 - fitWidth / 400) * 40 : 0;
+    const marginLeftPercentage = fitWidth < 400 ? (1 - fitWidth / 400) * 30 : 0;
 
     const frameHtml = html`
       <div
