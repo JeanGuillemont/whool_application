@@ -3,9 +3,7 @@ import satori from "satori";
 import { html } from "satori-html";
 import sharp from "sharp";
 
-type Data = {
-  framePng: Buffer;
-};
+type Data = Buffer;
 
 export default async function handler(
   req: NextApiRequest,
@@ -118,6 +116,6 @@ export default async function handler(
     res.setHeader("Content-Type", "image/png");
 
     // Send the image data
-    res.send({ framePng });
+    res.send( framePng );
   }
 }
