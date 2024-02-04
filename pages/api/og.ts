@@ -77,7 +77,7 @@ export default async function handler(
             <div
               style="display: flex; margin-top: 2%; margin-left: 10%; margin-right: 10%; color: #fff; font-size: 14px; font-weight: 800;text-align: center;"
             >
-              Beware of scam check domain carefully
+              Beware of scams check domain carefully
             </div>
           </div>
         </div>
