@@ -256,15 +256,14 @@ const Link: NextPage<any> = ({
           content={`https://whool.art/api/og?link=${linkOG}`}
         />
         <meta property="fc:frame:button:1" content="Visit URL" />
-        <meta property="fc:frame:button:1:action" content="post_redirect" />
+        <meta property="fc:frame:button:1:action" content="link" />
+        <meta property="fc:frame:button:1:target" content={`${urlDataOG}`}/>
         <meta property="fc:frame:button:2" content="Shorten URL" />
-        <meta property="fc:frame:button:2:action" content="post_redirect" />
+        <meta property="fc:frame:button:2:action" content="link" />
+        <meta property="fc:frame:button:2:target" content={`https://whool.art/?r=${referrerOG}`}/>
         <meta property="fc:frame:button:3" content="Mint on Zora" />
-        <meta property="fc:frame:button:3:action" content="post_redirect" />
-        <meta
-          property="fc:frame:post_url"
-          content={`https://whool.art/api/frame_button?referrer=${referrerOG}&link=${urlDataOG}&zora=${randomZoraOG}`}
-        />
+        <meta property="fc:frame:button:3:action" content="link" />
+        <meta property="fc:frame:button:3:target" content={`https://zora.co/collect/${randomZoraOG}?referrer=${referrerOG}`}/>
         <meta property="og:title" content="whool preview screen" />
         <meta
           property="og:image"
