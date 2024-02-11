@@ -447,7 +447,7 @@ export const getServerSideProps: GetServerSideProps = async (
       "&image=" +
       zoraDataOG.image +
       "&size=" +
-      zoraDataOG.size;
+      (zoraDataOG.size ? zoraDataOG.size : "150x150");
     // Pass data to the page via props
     return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
   }
