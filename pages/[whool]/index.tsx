@@ -44,7 +44,6 @@ const Link: NextPage<any> = ({
 
   useEffect(() => {
     setWhoolUrl(urlDataOG);
-    setWhoolId(idData);
     setRandomZora(randomZoraOG);
     setZoraImage(imageZoraOG);
     setZoraTitle(titleZoraOG);
