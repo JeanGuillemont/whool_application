@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
   const query = req.query;
-  const { link, image, size } = query;
+  const { link, image, ratio } = query;
 
   console.log(image);
   if (typeof ratio === "string") {
