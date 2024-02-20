@@ -53,13 +53,6 @@ const Link: NextPage<any> = ({
     setRandomReferrer(referrerOG);
   }, []);
 
-  useEffect(() => {
-    setWhoolOwner(ownerData);
-    if (metaDataResult) {
-      setWhoolMetaData(metaDataResult);
-    }
-  }, [usedWhool, randomZora, whoolAddress]);
-
   // create truncated url
   useEffect(() => {
     if (whoolUrl && whoolUrl.length > 30) {
