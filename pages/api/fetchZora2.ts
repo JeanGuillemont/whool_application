@@ -55,7 +55,7 @@ const fetchZora = async () => {
   
   const items: Item[] = data.props.pageProps.items;
 
-  const validChains = {
+  const validChains: { [key: string]: string } = {
     "ZORA-MAINNET": "zora",
     "BASE-MAINNET": "base",
     "OPTIMISM-MAINNET": "oeth",
