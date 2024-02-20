@@ -71,7 +71,7 @@ const fetchZora = async () => {
 
   const chain = validChains[randomItem.chainName];
   const token = `${chain}:${randomItem.collection}/${randomItem.tokenId}`;
-  const image = randomItem.image.asset.url;  
+  const image = 'https://remote-image.decentralized-content.com/image?url=' + encodeURIComponent(randomItem.image.asset.url) + '&w=1200&q=75'; 
   const title = randomItem.name;
   const creator = randomItem.authorName;
   const aspectRatio = randomItem.image.asset.metadata.dimensions.aspectRatio
