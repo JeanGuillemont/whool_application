@@ -32,7 +32,23 @@ let cache: Data | null = null;
 
 const fetchZora = async () => {
   const response = await fetch("https://zora.co/explore/new-today");
-  const data = await response.json();
+  const html = await response.text();
+  
+  // Load the HTML with Cheerio
+  const $ = cheerio.load(html);
+  
+  // Extract the JSON string
+  const jsonString = $('#__NEXT_DATA__').html() || '';
+  
+  // Parse the JSON string
+  let data;
+  try {
+    data = JSON.parse(jsonString);
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    return;
+  }
+  
   const items: Item[] = data.props.pageProps.items;
 
   const validChains = [
