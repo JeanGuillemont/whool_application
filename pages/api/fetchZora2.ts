@@ -1,4 +1,4 @@
-import cheerio from "cheerio";
+import cheerio from 'cheerio';
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
@@ -7,6 +7,7 @@ type Data = {
   title: string;
   creator: string;
   aspectRatio: string;
+  mintFirst: boolean;
 };
 
 interface Item {
@@ -26,6 +27,9 @@ interface Item {
   tokenId: string;
   name: string;
   authorName: string;
+  activity_summary: {
+    mint_count: number;
+  };
 }
 
 let cache: Data | null = null;
@@ -70,6 +74,7 @@ const fetchZora = async () => {
   const title = randomItem.name;
   const creator = randomItem.authorName;
   const aspectRatio = randomItem.image.asset.metadata.dimensions.aspectRatio
+  const mintFirst = randomItem.activity_summary.mint_count === 0;
 
   if (
     image !== undefined &&
@@ -83,6 +88,7 @@ const fetchZora = async () => {
       title,
       creator,
       aspectRatio,
+      mintFirst,
     };
   }
 };
