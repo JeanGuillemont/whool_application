@@ -39,6 +39,7 @@ const Link: NextPage<any> = ({
   const [zoraImage, setZoraImage] = useState(null);
   const [zoraTitle, setZoraTitle] = useState(null);
   const [zoraCreator, setZoraCreator] = useState(null);
+  const [zoraMintFirst, setZoraMintFirst] = useState(false);
   const [frameImage, setFrameImage] = useState<Buffer | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
   const [whoolLink, setWhoolLink] = useState<string | null>(null);
@@ -155,6 +156,7 @@ const Link: NextPage<any> = ({
     setZoraTitle(dataZ.title);
     setZoraCreator(dataZ.creator);
     setAspectRatio(dataZ.aspectRatio)
+    setZoraMintFirst(dataZ.mintFirst)
     console.log(randomZora);
     console.log(zoraImage);
     console.log(zoraCreator);
@@ -360,7 +362,7 @@ const Link: NextPage<any> = ({
                   variant="secondary"
                   onClick={openZora}
                 >
-                  Mint on Zora
+                  {zoraMintFirst ? 'Mint 1st on Zora' : 'Mint on Zora'}
                 </Button>
               </CardFooter>
             </Card>
