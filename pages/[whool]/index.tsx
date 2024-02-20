@@ -39,8 +39,6 @@ const Link: NextPage<any> = ({
   const [zoraImage, setZoraImage] = useState(null);
   const [zoraTitle, setZoraTitle] = useState(null);
   const [zoraCreator, setZoraCreator] = useState(null);
-  const [zoraType, setZoraType] = useState(null);
-  const [zoraSize, setZoraSize] = useState(null);
   const [frameImage, setFrameImage] = useState<Buffer | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
   const [whoolLink, setWhoolLink] = useState<string | null>(null);
@@ -150,25 +148,18 @@ const Link: NextPage<any> = ({
   }, []);
 
   const fetchZora = async () => {
-    const response = await fetch("/api/fetchZora");
+    const response = await fetch("/api/fetchZora2");
     const dataZ = await response.json();
     setRandomZora(dataZ.token);
     setZoraImage(dataZ.image);
     setZoraTitle(dataZ.title);
     setZoraCreator(dataZ.creator);
-    setZoraType(dataZ.fileType);
-    setZoraSize(dataZ.size);
+    setAspectRatio(dataZ.aspectRatio)
     console.log(randomZora);
     console.log(zoraImage);
     console.log(zoraCreator);
     console.log(zoraTitle);
-    console.log(zoraSize);
     console.log(zoraLink);
-
-    // Calculate aspect ratio from NFT
-    const [width, height] = dataZ.size.split("x").map(Number);
-    const aspectRatio = width / height;
-    setAspectRatio(aspectRatio);
   };
 
   //create referral links
@@ -181,7 +172,6 @@ const Link: NextPage<any> = ({
       setWhoolLink(whoolReferralLink);
     }
     console.log(zoraImage);
-    console.log(zoraSize);
   }, [randomZora, randomReferrer]);
 
   // set limit to NFT display depending on ratio
@@ -234,19 +224,6 @@ const Link: NextPage<any> = ({
       window.open(whoolUrl, "_blank");
     }
   };
-  useEffect(() => {
-    if (whoolUrl && zoraImage && zoraSize && !og) {
-      const ogLink =
-        (truncatedUrl ? truncatedUrl + "..." : whoolUrl) +
-        "&image=" +
-        zoraImage +
-        "&size=" +
-        zoraSize;
-      setOg(ogLink);
-    }
-  }, [whoolUrl, zoraImage, zoraSize]);
-
-  console.log(linkOG);
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       <Head>
@@ -405,7 +382,7 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   // Fetch data here based on context.params
-  const res = await fetch("https://whool.art/api/fetchZora");
+  const res = await fetch("https://whool.art/api/fetchZora2");
   const zoraDataOG = await res.json();
   const randomZoraOG = zoraDataOG.token;
 
@@ -446,8 +423,8 @@ export const getServerSideProps: GetServerSideProps = async (
         : urlDataOG) +
       "&image=" +
       zoraDataOG.image +
-      "&size=" +
-      (zoraDataOG.size ? zoraDataOG.size : "150x150");
+      "&ratio=" +
+      (zoraDataOG.aspectRatio ? zoraDataOG.aspectRatio : "1");
     // Pass data to the page via props
     return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
   }
