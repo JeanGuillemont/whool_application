@@ -20,10 +20,7 @@ import type { NextPage } from "next";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 const Link: NextPage<any> = ({
-  linkOG,
-  referrerOG,
-  urlDataOG,
-  randomZoraOG,
+  linkOG, referrerOG, urlDataOG, randomZoraOG, imageZoraOG, titleZoraOG, creatorZoraOG, aspectRatioZoraOG, mintFirstZoraOG
 }) => {
   const router = useRouter();
   const usedWhool = router.query.whool;
@@ -44,73 +41,18 @@ const Link: NextPage<any> = ({
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
   const [whoolLink, setWhoolLink] = useState<string | null>(null);
   const [og, setOg] = useState<string | undefined>(undefined);
-  // fetching whool url, owner and data
-  const {
-    data: urlData,
-    isError: urlError,
-    isLoading: urlLoading,
-    isSuccess: urlSuccess,
-  } = useContractRead({
-    address: whoolAddress,
-    abi: abi,
-    functionName: "getURL",
-    args: [usedWhool],
-    watch: false,
-  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
-  const {
-    data: idData,
-    isError: idError,
-    isLoading: idLoading,
-    isSuccess: idSuccess,
-  } = useContractRead({
-    address: whoolAddress,
-    abi: abi,
-    functionName: "whoolToTokenId",
-    args: [usedWhool],
-    watch: false,
-  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
-  const {
-    data: ownerData,
-    isError: ownerError,
-    isLoading: ownerLoading,
-    isSuccess: ownerSuccess,
-  } = useContractRead({
-    address: whoolAddress,
-    abi: abi,
-    functionName: "ownerOf",
-    args: [idData],
-    watch: false,
-  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
-  const {
-    data: metaData,
-    isError: metaDataError,
-    isLoading: metaDataLoading,
-    isSuccess: metaDataSuccess,
-  } = useContractRead({
-    address: whoolAddress,
-    abi: abi,
-    functionName: "tokenIdToWhoolData",
-    args: [whoolId],
-    watch: false,
-  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
-  const metaDataResult = metaData;
-  const {
-    data: contractOwnerData,
-    isError: contractOwnerError,
-    isLoading: contractOwnerLoading,
-    isSuccess: contractOwnerSuccess,
-  } = useContractRead({
-    address: whoolAddress,
-    abi: abi,
-    functionName: "owner",
-    watch: false,
-  }) as { data: any; isError: any; isLoading: any; isSuccess: any };
-  const contractOwner = contractOwnerData;
 
   useEffect(() => {
-    setWhoolUrl(urlData);
+    setWhoolUrl(urlDataOG);
     setWhoolId(idData);
-  }, [usedWhool, randomZora, whoolAddress]);
+    setRandomZora(randomZoraOG);
+    setZoraImage(imageZoraOG);
+    setZoraTitle(titleZoraOG);
+    setZoraCreator(creatorZoraOG);
+    setAspectRatio(aspectRatioZoraOG);
+    setZoraMintFirst(mintFirstZoraOG);
+    setRandomReferrer(referrerOG);
+  }, []);
 
   useEffect(() => {
     setWhoolOwner(ownerData);
@@ -125,44 +67,6 @@ const Link: NextPage<any> = ({
       setTruncatedUrl(whoolUrl.slice(0, 30));
     }
   }, [whoolUrl, randomZora]);
-
-  //set selected referrer between contract owner and nft owner
-  useEffect(() => {
-    let referrer;
-    let random = Math.random();
-
-    if (whoolMetaData && whoolMetaData[2]) {
-      // If whoolMetaData.custom is true, whoolOwner has 90% chance
-      referrer = random < 0.9 ? whoolOwner : contractOwner;
-    } else {
-      // If whoolMetaData.custom is false, whoolOwner has 70% chance
-      referrer = random < 0.7 ? whoolOwner : contractOwner;
-    }
-
-    setRandomReferrer(referrer);
-    console.log(randomReferrer);
-  }, [whoolMetaData, randomZora]);
-
-  // fetch Zora NFT
-  useEffect(() => {
-    fetchZora();
-  }, []);
-
-  const fetchZora = async () => {
-    const response = await fetch("/api/fetchZora2");
-    const dataZ = await response.json();
-    setRandomZora(dataZ.token);
-    setZoraImage(dataZ.image);
-    setZoraTitle(dataZ.title);
-    setZoraCreator(dataZ.creator);
-    setAspectRatio(dataZ.aspectRatio)
-    setZoraMintFirst(dataZ.mintFirst)
-    console.log(randomZora);
-    console.log(zoraImage);
-    console.log(zoraCreator);
-    console.log(zoraTitle);
-    console.log(zoraLink);
-  };
 
   //create referral links
   useEffect(() => {
@@ -387,6 +291,11 @@ export const getServerSideProps: GetServerSideProps = async (
   const res = await fetch("https://whool.art/api/fetchZora2");
   const zoraDataOG = await res.json();
   const randomZoraOG = zoraDataOG.token;
+  const imageZoraOG = zoraDataOG.image;
+  const titleZoraOG = zoraDataOG.title;
+  const creatorZoraOG = zoraDataOG.creator;
+  const aspectRatioZoraOG = zoraDataOG.aspectRatio;
+  const mintFirstZoraOG = zoraDataOG.mintFirst;
 
   const web3 = new Web3(
     `https://opt-mainnet.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY}`,
@@ -428,7 +337,7 @@ export const getServerSideProps: GetServerSideProps = async (
       "&ratio=" +
       (zoraDataOG.aspectRatio ? zoraDataOG.aspectRatio : "1");
     // Pass data to the page via props
-    return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG } };
+    return { props: { linkOG, referrerOG, urlDataOG, randomZoraOG, imageZoraOG, titleZoraOG, creatorZoraOG, aspectRatioZoraOG, mintFirstZoraOG } };
   }
   return { props: {} };
 };
