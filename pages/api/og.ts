@@ -13,24 +13,21 @@ export default async function handler(
   const { link, image, size } = query;
 
   console.log(image);
-  if (typeof size === "string") {
-    const [width, height] = size.split("x").map(Number);
+  if (typeof ratio === "string") {
+    const aspectRatio = Number(ratio);
 
     const maxWidth = 400;
     const maxHeight = 209;
-
-    // Calculate the aspect ratio of the original image
-    const aspectRatio = width / height;
 
     let fitWidth, fitHeight;
 
     // If the width is greater than the height (landscape orientation)
     if (aspectRatio > 1) {
-      fitWidth = Math.max(Math.min(width, maxWidth), 150);
+      fitWidth = maxWidth;
       fitHeight = fitWidth / aspectRatio;
     } else {
       // If the height is greater than the width (portrait orientation)
-      fitHeight = Math.max(Math.min(height, maxHeight), 150);
+      fitHeight = maxHeight;
       fitWidth = fitHeight * aspectRatio;
     }
 
