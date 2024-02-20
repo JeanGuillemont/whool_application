@@ -9,15 +9,31 @@ type Data = {
   aspectRatio: string;
 };
 
-// Create a cache
-let cache: Data | null = null;
-let cacheTimestamp = Date.now();
+interface Item {
+  chainName: string;
+  image: {
+    _type: string;
+    asset: {
+      url: string;
+      metadata: {
+        dimensions: {
+          aspectRatio: number;
+        };
+      };
+    };
+  };
+  collection: string;
+  tokenId: string;
+  name: string;
+  authorName: string;
+}
 
-// Function to fetch Zora data
+let cache: Data | null = null;
+
 const fetchZora = async () => {
   const response = await fetch("https://zora.co/explore/new-today");
   const data = await response.json();
-  const items = data.props.pageProps.items;
+  const items: Item[] = data.props.pageProps.items;
 
   const validChains = [
     "ZORA-MAINNET",
@@ -55,31 +71,25 @@ const fetchZora = async () => {
   }
 };
 
-// Function to update the cache
 const updateCache = async () => {
   let data = await fetchZora();
   cache = data as any;
-  cacheTimestamp = Date.now();
 };
 
-// Update the cache immediately when the server starts, and then every minute
 updateCache().then(() => setInterval(updateCache, 60 * 1000));
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<Data | { error: string }>,
 ) {
-  // If the cache is null, update it
   if (cache === null) {
     await updateCache();
   }
 
-  // If the cache is still null, send an error response
   if (cache === null) {
-    res.status(500);
+    res.status(500).json({ error: 'Failed to update cache' });
     return;
   }
 
-  // Send the data from the cache
   res.status(200).json(cache);
 }
