@@ -55,21 +55,22 @@ const fetchZora = async () => {
   
   const items: Item[] = data.props.pageProps.items;
 
-  const validChains = [
-    "ZORA-MAINNET",
-    "BASE-MAINNET", 
-    "OPTIMISM-MAINNET",
-    "ARBITRUM-MAINNET"
-  ];
+  const validChains = {
+    "ZORA-MAINNET": "zora",
+    "BASE-MAINNET": "base",
+    "OPTIMISM-MAINNET": "oeth",
+    "ARBITRUM-MAINNET": "arb"
+  };
 
   const filteredItems = items
-    .filter(item => validChains.includes(item.chainName))
+    .filter(item => Object.keys(validChains).includes(item.chainName))
     .filter(item => item.image?._type === "image");
 
   const randomIndex = Math.floor(Math.random() * filteredItems.length);
   const randomItem = filteredItems[randomIndex];
 
-  const token = `${randomItem.collection}/${randomItem.tokenId}`;
+  const chain = validChains[randomItem.chainName];
+  const token = `${chain}:${randomItem.collection}/${randomItem.tokenId}`;
   const image = randomItem.image.asset.url;  
   const title = randomItem.name;
   const creator = randomItem.authorName;
